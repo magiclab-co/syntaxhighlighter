@@ -228,6 +228,7 @@ function quickCodeHandler(e)
 
   // inject <textarea/> tag
   textarea.readOnly = true; // https://github.com/syntaxhighlighter/syntaxhighlighter/pull/329
+  textarea.setAttribute('spellcheck', 'false'); // disable spellcheck to avoid red doted lines under words
   textarea.appendChild(document.createTextNode(code));
   container.appendChild(textarea);
 

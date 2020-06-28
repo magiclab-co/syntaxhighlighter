@@ -1,5 +1,4 @@
 import sizzle from 'sizzle';
-import {expect} from 'chai';
 import SyntaxHighlighter, {registerBrush, clearRegisteredBrushes} from '../..';
 import Brush from '../fixtures/test_brush_v4';
 
@@ -35,12 +34,14 @@ function setupSyntaxHighlighter(html) {
 describe('integration/commonjs', () => {
   describe('first render pass', () => {
     setupSyntaxHighlighter(`<pre class="brush: test_brush_v4;">first</pre>`);
-    it('has applied the brush', () => expect(sizzle('.syntaxhighlighter')[0].innerHTML).to.contain(`<code class="test_brush_v4 plain">first</code>`));
-    it('does not render gutter', () => expect(sizzle('.syntaxhighlighter td.gutter').length).to.equal(0));
+    it('has applied the brush', () => expect(sizzle('.syntaxhighlighter')[0].innerHTML).toEqual(expect.arrayContaining([`<code class="test_brush_v4 plain">first</code>`])));
+    it('does not render gutter', () => expect(sizzle('.syntaxhighlighter td.gutter').length).toBe(0));
   });
 
   describe('second render pass', () => {
     setupSyntaxHighlighter(`<pre class="brush: test_brush_v4;">second</pre>`);
-    it('has applied the brush', () => expect(sizzle('.syntaxhighlighter')[0].innerHTML).to.contain(`<code class="test_brush_v4 plain">second</code>`));
+    it('has applied the brush', () => expect(sizzle('.syntaxhighlighter')[0].innerHTML).toEqual(
+      expect.arrayContaining([`<code class="test_brush_v4 plain">second</code>`])
+    ));
   });
 });

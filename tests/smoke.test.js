@@ -1,5 +1,4 @@
 import sizzle from 'sizzle';
-import {expect} from 'chai';
 import SyntaxHighlighter, {registerBrush} from '..';
 
 registerBrush(require('brush-xml'));
@@ -14,7 +13,7 @@ require('./fixtures/html_test_brush_v3');
 
 function expectSelectorToBePresent(element, selector, count = 1) {
   const el = sizzle(selector, element);
-  expect(el.length).to.eql(count);
+  expect(el.length).toEqual(count);
 }
 
 function html2element(html) {
@@ -41,7 +40,7 @@ describe('integration', function() {
   function itHasCommonElements() {
     describe('highlighted element', function() {
       it('exists', function() {
-        expect(highlighter).to.be.ok;
+        expect(highlighter).toBeTruthy();
       });
 
       it('has gutter', function() {

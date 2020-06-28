@@ -1,5 +1,4 @@
 import sizzle from 'sizzle';
-import {expect} from 'chai';
 
 const HTML = require('raw!../build-source/index.html');
 
@@ -42,10 +41,10 @@ describe('integration/compat', function() {
     setupSyntaxHighlighter();
 
     describe('using <script/> brush', () => {
-      it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v3')[0]).to.be.ok);
+      it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v3')[0]).toBeTruthy());
     });
 
-    it('exposes window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).to.be.ok);
+    it('exposes window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).toBeTruthy());
   });
 
   describe('when XRegExp is already present', () => {
@@ -55,6 +54,6 @@ describe('integration/compat', function() {
 
     setupSyntaxHighlighter();
 
-    it('does not overwrite existing instance of XRegExp', () => expect(window.XRegExp).to.eql('...'));
+    it('does not overwrite existing instance of XRegExp', () => expect(window.XRegExp).toBe('...'));
   });
 });

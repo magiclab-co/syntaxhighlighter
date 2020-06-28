@@ -1,5 +1,4 @@
 import sizzle from 'sizzle';
-import {expect} from 'chai';
 
 const HTML = require('raw!../build-source/index.html');
 
@@ -38,12 +37,12 @@ function setupSyntaxHighlighter() {
 
 function testSuite() {
   describe('using only the bundle', () => {
-    it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.html_test_brush_v3')[0]).to.be.ok);
-    it('highlights v4 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v4')[0]).to.be.ok);
-    it('highlights v4 ES6 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v4_es6')[0]).to.be.ok);
+    it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.html_test_brush_v3')[0]).toBeTruthy());
+    it('highlights v4 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v4')[0]).toBeTruthy());
+    it('highlights v4 ES6 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v4_es6')[0]).toBeTruthy());
   });
 
-  it('does not expose window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).to.be.undefined);
+  it('does not expose window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).toBeUndefined());
 }
 
 describe('integration/no-compat', () => {
@@ -61,7 +60,7 @@ describe('integration/no-compat', () => {
       testSuite();
 
       it('applies custom class name from global config variable to all units', () =>
-         expect(sizzle('.foo-bar.syntaxhighlighter').length).to.equal(3)
+         expect(sizzle('.foo-bar.syntaxhighlighter').length).toBe(3)
       );
     }
 

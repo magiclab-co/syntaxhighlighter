@@ -9,7 +9,6 @@ import defaults from './defaults';
 import HtmlScript from './html_script';
 import Highlighter from '../packages/brush-base';
 import { commonRegExp } from '../packages/syntaxhighlighter-regex';
-import cppBrush from '../packages/brush-cpp';
 
 const sh = {
   Match,

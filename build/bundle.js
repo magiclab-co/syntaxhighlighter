@@ -110,6 +110,8 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version, compat) {
 
     mode: 'development',
 
+    devtool: 'inline-source-map',
+
     externals: ['shCore'],
     resolveLoader: {
       modules: ['node_modules', 'build'],
@@ -126,10 +128,10 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version, compat) {
       //new webpack.optimize.DedupePlugin(),
       // new webpack.optimize.UglifyJsPlugin({ comments: false }),
       new webpack.BannerPlugin(banner),
-      new webpack.SourceMapDevToolPlugin({
-        filename: 'syntaxhighlighter.js.map',
-        append: '\n//# sourceMappingURL=[url]',
-      }),
+      // new webpack.SourceMapDevToolPlugin({
+      //   filename: 'syntaxhighlighter.js.map',
+      //   append: '\n//# sourceMappingURL=[url]',
+      // }),
       new webpack.DefinePlugin({
         COMPAT: compat === true,
       }),

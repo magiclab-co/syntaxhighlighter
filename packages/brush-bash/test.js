@@ -1,5 +1,3 @@
-var chai = require('chai');
-var expect = chai.expect;
 var match = require('syntaxhighlighter-match');
 var XRegExp = require('syntaxhighlighter-regex').XRegExp;
 var Brush = require('./brush');
@@ -13,12 +11,12 @@ describe('brush-bash', function() {
   });
 
   it('has populated code sample', function() {
-    expect(sample).to.not.match(/^Populate/);
+    expect(sample).not.toMatch(/^Populate/);
   });
 
   describe('instance', function() {
     it('has `regexList`', function() {
-      expect(instance).to.have.property('regexList');
+      expect(instance).toHaveProperty('regexList');
     });
   });
 
@@ -30,7 +28,7 @@ describe('brush-bash', function() {
     });
 
     it('can parse', function() {
-      expect(matches).to.have.length.above(0);
+      expect(matches.length).toBeGreaterThan(0);
     });
   });
 });

@@ -1,5 +1,3 @@
-var chai = require('chai');
-var expect = chai.expect;
 var match = require('syntaxhighlighter-match');
 var Brush = require('./brush');
 var sample = require('fs').readFileSync('./sample.txt', 'utf8');
@@ -12,12 +10,12 @@ describe('brush-coldfusion', function() {
   });
 
   it('has populated code sample', function() {
-    return expect(sample).to.not.match(/^Populate/);
+    return expect(sample).not.toMatch(/^Populate/);
   });
 
   describe('instance', function() {
     return it('has `regexList`', function() {
-      return expect(instance).to.have.property('regexList');
+      return expect(instance).toHaveProperty('regexList');
     });
   });
 
@@ -29,7 +27,7 @@ describe('brush-coldfusion', function() {
     });
 
     return it('can parse', function() {
-      return expect(matches).to.have.length.above(0);
+      return expect(matches.length).toBeGreaterThan(0);
     });
   });
 });

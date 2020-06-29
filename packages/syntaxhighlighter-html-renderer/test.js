@@ -1,5 +1,4 @@
 import $ from 'cheerio';
-import { expect } from 'chai';
 import fs from 'fs';
 import { applyRegexList } from 'syntaxhighlighter-match';
 import Renderer from '.';
@@ -23,24 +22,24 @@ describe('syntaxhighlighter-html-renderer', function() {
   function itHasElements({gutter, lineCount, firstLine = 1, highlight = []} = {}) {
     describe('gutter', function() {
       if (gutter) {
-        it('is present', () => expect($('td.gutter', element)).to.have.length(1));
-        it(`has ${lineCount} lines`, () => expect($('td.gutter > .line', element)).to.have.length(lineCount));
-        it(`starts at line ${firstLine}`, () => expect($($('td.gutter > .line', element)[0]).hasClass('number' + firstLine)).to.be.true);
+        it('is present', () => expect($('td.gutter', element)).toHaveLength(1));
+        it(`has ${lineCount} lines`, () => expect($('td.gutter > .line', element)).toHaveLength(lineCount));
+        it(`starts at line ${firstLine}`, () => expect($($('td.gutter > .line', element)[0]).hasClass('number' + firstLine)).toBe(true));
 
         highlight.forEach(lineNumber =>
           it(`has line ${lineNumber} highlighted`, function() {
-            expect($(`td.gutter > .line.number${lineNumber}`, element).hasClass('highlighted')).to.be.true;
+            expect($(`td.gutter > .line.number${lineNumber}`, element).hasClass('highlighted')).toBe(true);
           })
         );
       } else {
-        it('is not present', () => expect($('td.gutter', element)).to.have.length(0));
+        it('is not present', () => expect($('td.gutter', element)).toHaveLength(0));
       }
     });
 
     describe('code', function() {
-      it('is present', () => expect($('td.code', element)).to.have.length(1));
-      it(`has ${lineCount} lines`, () => expect($('td.code > .container > .line', element)).to.have.length(lineCount));
-      it(`starts at line ${firstLine}`, () => expect($($('td.code > .container > .line', element)[0]).hasClass('number' + firstLine)).to.be.true);
+      it('is present', () => expect($('td.code', element)).toHaveLength(1));
+      it(`has ${lineCount} lines`, () => expect($('td.code > .container > .line', element)).toHaveLength(lineCount));
+      it(`starts at line ${firstLine}`, () => expect($($('td.code > .container > .line', element)[0]).hasClass('number' + firstLine)).toBe(true));
     });
   };
 
@@ -76,7 +75,7 @@ describe('syntaxhighlighter-html-renderer', function() {
       before(() => element = $(getHtml(CODE, {autoLinks: true, regexList: []})));
       itHasElements({gutter: true, lineCount: 14});
       it('has URL on line 3', function() {
-        expect($("td.code > .container > .line.number3 > .plain > a", element)).to.have.length(1);
+        expect($("td.code > .container > .line.number3 > .plain > a", element)).toHaveLength(1);
       });
     });
   });

@@ -1,17 +1,17 @@
-;(function()
-{
+(function () {
   // CommonJS
-  SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined' ? require('shCore').SyntaxHighlighter : null);
+  SyntaxHighlighter =
+    SyntaxHighlighter ||
+    (typeof require !== 'undefined' ? require('shCore').SyntaxHighlighter : null);
 
-  function Brush()
-  {
+  function Brush() {
     this.regexList = [
       { regex: /'.*$/gm, css: 'comments' },
       { regex: /^\s*#.*$/gm, css: 'preprocessor' },
       { regex: SyntaxHighlighter.regexLib.doubleQuotedString, css: 'string' },
-      { regex: new RegExp(this.getKeywords('hello world'), 'gm'), css: 'keyword' }
+      { regex: new RegExp(this.getKeywords('hello world'), 'gm'), css: 'keyword' },
     ];
-  };
+  }
 
   Brush.prototype = new SyntaxHighlighter.Highlighter();
   Brush.aliases = ['test_brush_v3'];
@@ -19,5 +19,5 @@
   SyntaxHighlighter.brushes.Compat = Brush;
 
   // CommonJS
-  typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
+  typeof exports != 'undefined' ? (exports.Brush = Brush) : null;
 })();

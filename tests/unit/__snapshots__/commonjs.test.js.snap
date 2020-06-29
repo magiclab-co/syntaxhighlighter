@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit/commonjs using a brush does not render gutter 1`] = `
+"
+      <div class=\\"syntaxhighlighter nogutter  \\">
+        <table border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\">
+          
+          <tbody>
+            <tr>
+              
+              <td class=\\"code\\">
+                <div class=\\"container\\"><div class=\\"line number1 index0 alt2\\"><code class=\\"keyword\\">hello</code> <code class=\\"plain\\">foo bar </code><code class=\\"keyword\\">world</code><code class=\\"plain\\">!</code></div></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    "
+`;
+
+exports[`unit/commonjs using a brush renders content 1`] = `
+"
+      <div class=\\"syntaxhighlighter nogutter  \\">
+        <table border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\">
+          
+          <tbody>
+            <tr>
+              
+              <td class=\\"code\\">
+                <div class=\\"container\\"><div class=\\"line number1 index0 alt2\\"><code class=\\"keyword\\">hello</code> <code class=\\"plain\\">foo bar </code><code class=\\"keyword\\">world</code><code class=\\"plain\\">!</code></div></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    "
+`;

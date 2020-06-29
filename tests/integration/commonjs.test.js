@@ -1,47 +1,52 @@
 import sizzle from 'sizzle';
-import SyntaxHighlighter, {registerBrush, clearRegisteredBrushes} from '../..';
+import SyntaxHighlighter, { registerBrush, clearRegisteredBrushes } from '../..';
 import Brush from '../fixtures/test_brush_v4';
 
 function setupSyntaxHighlighter(html) {
   let div;
 
-  before(done => {
-    registerBrush(Brush);
-
+  beforeAll(() => {
     div = document.createElement('div');
     div.innerHTML = html;
     document.body.appendChild(div);
 
-    SyntaxHighlighter.highlight({gutter: false});
+    SyntaxHighlighter.highlight({ gutter: false });
 
-    function wait() {
-      if (sizzle('.syntaxhighlighter').length) {
-        done();
-      } else {
-        setTimeout(wait, 900);
-      }
-    }
-
-    wait();
+    return new Promise((resolve) => {
+      setTimeout(resolve, 900);
+    });
   });
 
-  after(() => {
-    clearRegisteredBrushes();
+  afterAll(() => {
     document.body.removeChild(div);
   });
 }
 
 describe('integration/commonjs', () => {
+  beforeAll(() => {
+    registerBrush(Brush);
+  });
+
+  afterAll(() => {
+    clearRegisteredBrushes();
+  });
+
   describe('first render pass', () => {
     setupSyntaxHighlighter(`<pre class="brush: test_brush_v4;">first</pre>`);
-    it('has applied the brush', () => expect(sizzle('.syntaxhighlighter')[0].innerHTML).toEqual(expect.arrayContaining([`<code class="test_brush_v4 plain">first</code>`])));
-    it('does not render gutter', () => expect(sizzle('.syntaxhighlighter td.gutter').length).toBe(0));
+
+    it('has applied the brush', () => {
+      expect(sizzle('.syntaxhighlighter')[0].innerHTML).toMatchSnapshot();
+    });
+
+    it('does not render gutter', () =>
+      expect(sizzle('.syntaxhighlighter td.gutter').length).toBe(0));
   });
 
   describe('second render pass', () => {
     setupSyntaxHighlighter(`<pre class="brush: test_brush_v4;">second</pre>`);
-    it('has applied the brush', () => expect(sizzle('.syntaxhighlighter')[0].innerHTML).toEqual(
-      expect.arrayContaining([`<code class="test_brush_v4 plain">second</code>`])
-    ));
+
+    it('has applied the brush', () => {
+      expect(sizzle('.syntaxhighlighter')[0].innerHTML).toMatchSnapshot();
+    });
   });
 });

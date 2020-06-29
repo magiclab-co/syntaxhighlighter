@@ -1,43 +1,32 @@
-var applyRegexList = require('syntaxhighlighter-match').applyRegexList;
+import { applyRegexList } from 'syntaxhighlighter-match';
 
-function HtmlScript(BrushXML, brushClass)
-{
+function HtmlScript(BrushXML, brushClass) {
   var scriptBrush,
-    xmlBrush = new BrushXML()
-    ;
-
-  if (brushClass == null)
-    return;
+    xmlBrush = new BrushXML();
+  if (brushClass == null) return;
 
   scriptBrush = new brushClass();
 
   if (scriptBrush.htmlScript == null)
-    throw new Error('Brush wasn\'t configured for html-script option: ' + brushClass.brushName);
+    throw new Error("Brush wasn't configured for html-script option: " + brushClass.brushName);
 
-  xmlBrush.regexList.push(
-    { regex: scriptBrush.htmlScript.code, func: process }
-  );
+  xmlBrush.regexList.push({ regex: scriptBrush.htmlScript.code, func: process });
 
   this.regexList = xmlBrush.regexList;
 
-  function offsetMatches(matches, offset)
-  {
-    for (var j = 0, l = matches.length; j < l; j++)
-      matches[j].index += offset;
+  function offsetMatches(matches, offset) {
+    for (var j = 0, l = matches.length; j < l; j++) matches[j].index += offset;
   }
 
-  function process(match, info)
-  {
+  function process(match) {
     var code = match.code,
-        results = [],
-        regexList = scriptBrush.regexList,
-        offset = match.index + match.left.length,
-        htmlScript = scriptBrush.htmlScript,
-        matches
-        ;
+      results = [],
+      regexList = scriptBrush.regexList,
+      offset = match.index + match.left.length,
+      htmlScript = scriptBrush.htmlScript,
+      matches;
 
-    function add(matches)
-    {
+    function add(matches) {
       results = results.concat(matches);
     }
 
@@ -46,26 +35,23 @@ function HtmlScript(BrushXML, brushClass)
     add(matches);
 
     // add left script bracket
-    if (htmlScript.left != null && match.left != null)
-    {
+    if (htmlScript.left != null && match.left != null) {
       matches = applyRegexList(match.left, [htmlScript.left]);
       offsetMatches(matches, match.index);
       add(matches);
     }
 
     // add right script bracket
-    if (htmlScript.right != null && match.right != null)
-    {
+    if (htmlScript.right != null && match.right != null) {
       matches = applyRegexList(match.right, [htmlScript.right]);
       offsetMatches(matches, match.index + match[0].lastIndexOf(match.right));
       add(matches);
     }
 
-    for (var j = 0, l = results.length; j < l; j++)
-      results[j].brushName = brushClass.brushName;
+    for (var j = 0, l = results.length; j < l; j++) results[j].brushName = brushClass.brushName;
 
     return results;
   }
-};
+}
 
-module.exports = HtmlScript;
+export default HtmlScript;

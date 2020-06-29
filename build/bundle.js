@@ -14,16 +14,18 @@ function render(filepath, context) {
 function getVersion(rootPath) {
   const fs = require('fs');
 
-  return fs.promise.readFile(`${rootPath}/package.json`)
+  return fs.promise
+    .readFile(`${rootPath}/package.json`)
     .then(JSON.parse)
-    .then(({version}) => version);
+    .then(({ version }) => version);
 }
 
 function getAvailableBrushes(rootPath) {
   const glob = require('glob');
 
-  return glob.promise(`${rootPath}/repos/brush-*`)
-    .then(brushes => brushes.map(path => path.match(/brush-(.*)$/)[1]));
+  return glob
+    .promise(`${rootPath}/repos/brush-*`)
+    .then((brushes) => brushes.map((path) => path.match(/brush-(.*)$/)[1]));
 }
 
 function getBuildBrushes(rootPath, argv, availableBrushes) {
@@ -45,58 +47,69 @@ function getBuildBrushes(rootPath, argv, availableBrushes) {
     buildBrushes = availableBrushes;
   }
 
-  return Promise.all(buildBrushes.map(function (name) {
-    let requirePath = path.resolve(process.cwd(), name);
-    let sample;
+  return Promise.all(
+    buildBrushes.map(function (name) {
+      let requirePath = path.resolve(process.cwd(), name);
+      let sample;
 
-    return fs.promise.stat(requirePath)
-      // handle brushes by full file path
-      .then(
-        () => fs.promise.readFile(`${path.dirname(requirePath)}/sample.txt`)
-          .then(content => sample = content)
-          .catch(() => null)
-          .then(() => requirePath = path.relative(`${rootPath}/src`, requirePath))
-      )
+      return (
+        fs.promise
+          .stat(requirePath)
+          // handle brushes by full file path
+          .then(() =>
+            fs.promise
+              .readFile(`${path.dirname(requirePath)}/sample.txt`)
+              .then((content) => (sample = content))
+              .catch(() => null)
+              .then(() => (requirePath = path.relative(`${rootPath}/src`, requirePath)))
+          )
 
-      // handle brushes by name only
-      .catch(function () {
-        if (availableBrushes.indexOf(name) === -1) {
-          return Promise.reject(new BuildError(`Unknown brush "${name}".`));
-        }
+          // handle brushes by name only
+          .catch(function () {
+            if (availableBrushes.indexOf(name) === -1) {
+              return Promise.reject(new BuildError(`Unknown brush "${name}".`));
+            }
 
-        requirePath = `brush-${name}`;
+            requirePath = `brush-${name}`;
 
-        return fs.promise.readFile(`${rootPath}/repos/brush-${name}/sample.txt`, 'utf8')
-          .then(content => sample = content)
-          .catch(() => null);
-      })
+            return fs.promise
+              .readFile(`${rootPath}/repos/brush-${name}/sample.txt`, 'utf8')
+              .then((content) => (sample = content))
+              .catch(() => null);
+          })
 
-      .then(() => sample = sample || 'no sample.txt found')
-      .then(() => Promise.props({name, requirePath, sample}));
-  }));
+          .then(() => (sample = sample || 'no sample.txt found'))
+          .then(() => Promise.props({ name, requirePath, sample }))
+      );
+    })
+  );
 }
 
 function buildJavaScript(rootPath, outputPath, buildBrushes, version, compat) {
   const fs = require('fs');
+  const path = require('path');
   const webpack = require('webpack');
 
-  const banner = render(`${rootPath}/build/templates/banner.js.ejs`, { version, date: (new Date).toUTCString() });
-  const registerBrushes = render(`${rootPath}/build/templates/bundle-register-brushes.js.ejs`, { buildBrushes });
+  const banner = render(`${rootPath}/build/templates/banner.js.ejs`, {
+    version,
+    date: new Date().toUTCString(),
+  });
+  const registerBrushes = render(`${rootPath}/build/templates/bundle-register-brushes.js.ejs`, {
+    buildBrushes,
+  });
   const core = render(`${rootPath}/src/core.js`, { registerBrushes });
   const corePath = `${rootPath}/src/core.js`;
   const backupCorePath = `${rootPath}/src/core.js.bak`;
   const config = {
     entry: `${rootPath}/src/index.js`,
     output: {
-      path: outputPath,
-      filename: 'syntaxhighlighter.js'
+      path: path.resolve(__dirname, '..', outputPath),
+      filename: 'syntaxhighlighter.js',
     },
-    
-    mode: "development",
 
-    externals: [
-      'shCore'
-    ],
+    mode: 'development',
+
+    externals: ['shCore'],
     resolveLoader: {
       modules: ['node_modules', 'build'],
     },
@@ -104,7 +117,7 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version, compat) {
       rules: [
         {
           test: /\.js$/,
-          loaders: ['babel-loader', 'brush-v3-loader']
+          loaders: ['babel-loader', 'brush-v3-loader'],
         },
       ],
     },
@@ -119,37 +132,43 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version, compat) {
       new webpack.DefinePlugin({
         COMPAT: compat === true,
       }),
-    ]
+    ],
   };
 
-  return fs.promise.rename(corePath, backupCorePath)
+  return fs.promise
+    .rename(corePath, backupCorePath)
     .then(() => fs.promise.writeFile(corePath, core))
     .then(() => webpack.promise(config))
-    .then(stats =>
-      fs.promise.unlink(corePath)
+    .then((stats) =>
+      fs.promise
+        .unlink(corePath)
         .then(() => fs.promise.rename(backupCorePath, corePath))
         .then(() => stats)
     );
 }
 
-function buildCSS(rootPath, outputPath, theme, version) {
-  const Promise = require('songbird');
+// eslint-disable-next-line no-unused-vars
+function buildCSS(rootPath, outputPath, theme, _version) {
   const fs = require('fs');
   const sass = require('node-sass');
 
   if (!theme) return;
 
-  return fs.promise.stat(theme)
-    .then(() => theme, () => `${rootPath}/repos/theme-${theme}/theme.scss`)
-    .then(path => fs.promise.readFile(path, 'utf8'))
-    .then(data => sass.promise.render({ data, includePaths: [`${rootPath}/node_modules/theme-base`] }))
-    .then(results => fs.promise.writeFile(`${outputPath}/theme.css`, results.css))
-    ;
+  return fs.promise
+    .stat(theme)
+    .then(
+      () => theme,
+      () => `${rootPath}/repos/theme-${theme}/theme.scss`
+    )
+    .then((path) => fs.promise.readFile(path, 'utf8'))
+    .then((data) =>
+      sass.promise.render({ data, includePaths: [`${rootPath}/node_modules/theme-base`] })
+    )
+    .then((results) => fs.promise.writeFile(`${outputPath}/theme.css`, results.css));
 }
 
 function copyHtml(rootPath, outputPath, buildBrushes, version) {
   const fs = require('fs');
-  const Promise = require('songbird');
 
   return fs.promise.writeFile(
     `${outputPath}/index.html`,
@@ -158,29 +177,35 @@ function copyHtml(rootPath, outputPath, buildBrushes, version) {
 }
 
 export function bundle(rootPath, destPath, argv) {
-  return Promise.all([
-    getAvailableBrushes(rootPath),
-    getVersion(rootPath),
-  ])
-  .then(function ([availableBrushes, version]) {
-    argv = argv || require('yargs')
-      .describe('brushes', 'Comma separated list of brush names or paths to be bundled.')
-      .describe('theme', 'Name or path of the CSS theme you want to use.')
-      .describe('compat', 'Will include v3 brush compatibility feature. See http://bit.ly/1KCaUq6 for complete details.')
-      .default('output', `${rootPath}/dist`).describe('output', 'Output folder for dist files.')
-      .epilog(`Available brushes are "all" or ${availableBrushes.join(', ')}.\n\nYou may also pass paths to brush JavaScript files and theme SASS files.`)
-      .help('help')
-      .argv;
+  return Promise.all([getAvailableBrushes(rootPath), getVersion(rootPath)]).then(function ([
+    availableBrushes,
+    version,
+  ]) {
+    argv =
+      argv ||
+      require('yargs')
+        .describe('brushes', 'Comma separated list of brush names or paths to be bundled.')
+        .describe('theme', 'Name or path of the CSS theme you want to use.')
+        .describe(
+          'compat',
+          'Will include v3 brush compatibility feature. See http://bit.ly/1KCaUq6 for complete details.'
+        )
+        .default('output', `${rootPath}/dist`)
+        .describe('output', 'Output folder for dist files.')
+        .epilog(
+          `Available brushes are "all" or ${availableBrushes.join(
+            ', '
+          )}.\n\nYou may also pass paths to brush JavaScript files and theme SASS files.`
+        )
+        .help('help').argv;
 
-    return getBuildBrushes(rootPath, argv, availableBrushes)
-      .then(function (buildBrushes) {
-        return Promise.all([
-          buildJavaScript(rootPath, argv.output, buildBrushes, version, argv.compat),
-          buildCSS(rootPath, argv.output, argv.theme, version),
-          copyHtml(rootPath, argv.output, buildBrushes, version),
-        ])
-        .then(([stats]) => ({ theme: argv.theme, stats, buildBrushes }));
-      });
+    return getBuildBrushes(rootPath, argv, availableBrushes).then(function (buildBrushes) {
+      return Promise.all([
+        buildJavaScript(rootPath, argv.output, buildBrushes, version, argv.compat),
+        buildCSS(rootPath, argv.output, argv.theme, version),
+        copyHtml(rootPath, argv.output, buildBrushes, version),
+      ]).then(([stats]) => ({ theme: argv.theme, stats, buildBrushes }));
+    });
   });
 }
 
@@ -196,12 +221,13 @@ export default function (gulp, rootPath) {
           const gulpUtil = require('gulp-util');
 
           if (theme) gulpUtil.log(`Theme: ${theme}`);
-          if (buildBrushes) gulpUtil.log(`Brushes: ${buildBrushes.map(brush => brush.name).join(', ')}`);
+          if (buildBrushes)
+            gulpUtil.log(`Brushes: ${buildBrushes.map((brush) => brush.name).join(', ')}`);
           gulpUtil.log(stats.toString({ colors: true }));
 
           done();
         })
-        .catch(err => gulpUtil.log(gulpUtil.colors.red(err.isBuild ? err.message : err.stack)))
+        .catch((err) => gulpUtil.log(gulpUtil.colors.red(err.isBuild ? err.message : err.stack)));
     }
   );
 }

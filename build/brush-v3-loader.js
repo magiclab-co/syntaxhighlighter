@@ -5,11 +5,16 @@ var header = null;
 
 function getHeader(callback) {
   if (header) {
-    return setImmediate(function () { callback(null, header) });
+    return setImmediate(function () {
+      callback(null, header);
+    });
   }
 
-  fs.readFile(__dirname + '/templates/brush-v3-compatibility-header.js', 'utf8', function (err, content) {
-    callback(err, header = content);
+  fs.readFile(__dirname + '/templates/brush-v3-compatibility-header.js', 'utf8', function (
+    err,
+    content
+  ) {
+    callback(err, (header = content));
   });
 }
 
@@ -25,4 +30,4 @@ module.exports = function (source, map) {
 
     return callback(err, source, map);
   });
-}
+};

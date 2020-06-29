@@ -1,6 +1,8 @@
 import sizzle from 'sizzle';
+import fs from 'fs';
+import path from 'path';
 
-const HTML = require('raw!../build-source/index.html');
+const HTML = fs.readFileSync(path.resolve(__dirname, '../build-source/index.html'), 'utf8');
 
 function createScript(src) {
   const script = document.createElement('script');
@@ -11,44 +13,39 @@ function createScript(src) {
 function setupSyntaxHighlighter() {
   let div;
 
-  before(function (done) {
+  beforeAll(() => {
     div = document.createElement('div');
     div.innerHTML = HTML;
 
-    div.appendChild(createScript('/base/tests/build-dest/syntaxhighlighter.js'));
+    div.appendChild(createScript('/base/tests/build-dest-compat/syntaxhighlighter.js'));
     div.appendChild(createScript('/base/tests/build-dest/test_brush_v3.js'));
 
     document.body.appendChild(div);
 
-    function wait() {
-      if (sizzle('.syntaxhighlighter').length) {
-        done();
-      } else {
-        setTimeout(wait, 900);
-      }
-    }
-
-    wait();
+    return new Promise(resolve => {
+      setTimeout(resolve, 900);
+    });
   });
 
-  after(() => {
+  afterAll(() => {
     document.body.removeChild(div);
   });
 }
 
-describe('integration/compat', function() {
+describe('integration/compat', () => {
   describe('`--compat` features', () => {
     setupSyntaxHighlighter();
 
     describe('using <script/> brush', () => {
-      it('highlights v3 brush', () => expect(sizzle('.syntaxhighlighter.test_brush_v3')[0]).toBeTruthy());
+      it('highlights v3 brush', () =>
+        expect(sizzle('.syntaxhighlighter.test_brush_v3')[0]).toBeTruthy());
     });
 
     it('exposes window.SyntaxHighlighter', () => expect(window.SyntaxHighlighter).toBeTruthy());
   });
 
   describe('when XRegExp is already present', () => {
-    before(() => {
+    beforeAll(() => {
       window.XRegExp = '...';
     });
 

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   /** Additional CSS class names to be added to highlighter elements. */
   'class-name': '',
 
@@ -15,10 +15,10 @@ module.exports = {
   'pad-line-numbers': false,
 
   /** Lines to highlight. */
-  'highlight': null,
+  highlight: null,
 
   /** Title to be displayed above the code block. */
-  'title': null,
+  title: null,
 
   /** Enables or disables smart tabs. */
   'smart-tabs': true,
@@ -27,18 +27,18 @@ module.exports = {
   'tab-size': 4,
 
   /** Enables or disables gutter. */
-  'gutter': true,
+  gutter: true,
 
   /** Enables quick code copy and paste from double click. */
   'quick-code': true,
 
   /** Forces code view to be collapsed. */
-  'collapse': false,
+  collapse: false,
 
   /** Enables or disables automatic links. */
   'auto-links': true,
 
-  'unindent': true,
+  unindent: true,
 
-  'html-script': false
+  'html-script': false,
 };

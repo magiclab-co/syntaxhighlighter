@@ -1,5 +1,5 @@
 import sizzle from 'sizzle';
-import SyntaxHighlighter, {registerBrush} from '..';
+import SyntaxHighlighter, { registerBrush } from '..';
 
 registerBrush(require('brush-xml'));
 registerBrush(require('./fixtures/test_brush_v4'));
@@ -23,10 +23,10 @@ function html2element(html) {
 }
 
 function remove(el) {
-  if(el.parentNode) el.parentNode.removeChild(el);
+  if (el.parentNode) el.parentNode.removeChild(el);
 }
 
-describe('integration', function() {
+describe('integration', () => {
   let highlighter;
   let pre;
 
@@ -38,22 +38,22 @@ describe('integration', function() {
   }
 
   function itHasCommonElements() {
-    describe('highlighted element', function() {
-      it('exists', function() {
+    describe('highlighted element', () => {
+      it('exists', () => {
         expect(highlighter).toBeTruthy();
       });
 
-      it('has gutter', function() {
+      it('has gutter', () => {
         expectSelectorToBePresent(highlighter, 'td.gutter');
       });
 
-      it('has code', function() {
+      it('has code', () => {
         expectSelectorToBePresent(highlighter, 'td.code');
       });
     });
   }
 
-  afterEach(function() {
+  afterEach(() => {
     if (pre) remove(pre);
     if (highlighter) remove(highlighter);
 
@@ -61,27 +61,35 @@ describe('integration', function() {
   });
 
   function testElementDetection(brushName) {
-    describe('element detection', function() {
-      describe(`using '<pre class="brush: ${brushName}">'`, function() {
+    describe('element detection', () => {
+      describe(`using '<pre class="brush: ${brushName}">'`, () => {
         beforeEach(() => createHighlighter(`<pre class="brush: ${brushName}">hello world</pre>`));
         itHasCommonElements();
       });
 
-      describe(`using '<script type="syntaxhighlighter" class="brush: ${brushName}">'`, function() {
-        beforeEach(() => createHighlighter(`<script type="syntaxhighlighter" class="brush: ${brushName}">hello world</script>`));
+      describe(`using '<script type="syntaxhighlighter" class="brush: ${brushName}">'`, () => {
+        beforeEach(() =>
+          createHighlighter(
+            `<script type="syntaxhighlighter" class="brush: ${brushName}">hello world</script>`
+          )
+        );
         itHasCommonElements();
       });
 
-      describe(`using '<script type="text/syntaxhighlighter" class="brush: ${brushName}">'`, function() {
-        beforeEach(() => createHighlighter(`<script type="text/syntaxhighlighter" class="brush: ${brushName}">hello world</script>`));
+      describe(`using '<script type="text/syntaxhighlighter" class="brush: ${brushName}">'`, () => {
+        beforeEach(() =>
+          createHighlighter(
+            `<script type="text/syntaxhighlighter" class="brush: ${brushName}">hello world</script>`
+          )
+        );
         itHasCommonElements();
       });
     });
   }
 
   function testRegularBrush(brushName) {
-    describe(`regular brush '<pre class="brush: ${brushName}">'`, function() {
-      beforeEach(function() {
+    describe(`regular brush '<pre class="brush: ${brushName}">'`, () => {
+      beforeEach(() => {
         createHighlighter(`
           <pre class="brush: ${brushName}">
             hello world
@@ -92,17 +100,20 @@ describe('integration', function() {
 
       itHasCommonElements();
 
-      describe('class names', function() {
-        it('applies brush name', function() {
-          expectSelectorToBePresent(highlighter, `td.code .line.number1 > code.${brushName}.keyword:contains(hello)`);
+      describe('class names', () => {
+        it('applies brush name', () => {
+          expectSelectorToBePresent(
+            highlighter,
+            `td.code .line.number1 > code.${brushName}.keyword:contains(hello)`
+          );
         });
       });
     });
   }
 
   function testHtmlScriptBrush(brushName) {
-    describe(`html-script brush '<pre class="brush: ${brushName}; html-script: true">'`, function() {
-      beforeEach(function() {
+    describe(`html-script brush '<pre class="brush: ${brushName}; html-script: true">'`, () => {
+      beforeEach(() => {
         createHighlighter(`
           <pre class="brush: ${brushName}; html-script: true">
             world &lt;script>&lt;?= hello world ?>&lt;/script>
@@ -113,27 +124,34 @@ describe('integration', function() {
 
       itHasCommonElements();
 
-      describe('class names', function() {
-        it('applies htmlscript class name', function() {
-          expectSelectorToBePresent(highlighter, `td.code .line.number1 > code.htmlscript.keyword:contains(script)`, 2);
+      describe('class names', () => {
+        it('applies htmlscript class name', () => {
+          expectSelectorToBePresent(
+            highlighter,
+            `td.code .line.number1 > code.htmlscript.keyword:contains(script)`,
+            2
+          );
         });
 
-        it('applies brush class name', function() {
-          expectSelectorToBePresent(highlighter, `td.code .line.number1 > code.${brushName}.keyword:contains(hello)`);
+        it('applies brush class name', () => {
+          expectSelectorToBePresent(
+            highlighter,
+            `td.code .line.number1 > code.${brushName}.keyword:contains(hello)`
+          );
         });
       });
     });
   }
 
-  describe('v4 brushes', function () {
+  describe('v4 brushes', () => {
     testElementDetection('test_brush_v4');
     testRegularBrush('test_brush_v4');
-    testHtmlScriptBrush('html_test_brush_v4')
+    testHtmlScriptBrush('html_test_brush_v4');
   });
 
-  describe('v3 brushes', function () {
+  describe('v3 brushes', () => {
     testElementDetection('test_brush_v3');
     testRegularBrush('test_brush_v3');
-    testHtmlScriptBrush('html_test_brush_v3')
+    testHtmlScriptBrush('html_test_brush_v3');
   });
 });

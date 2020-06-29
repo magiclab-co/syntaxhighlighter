@@ -6,15 +6,13 @@ describe('unit/commonjs', () => {
   describe('using a brush', () => {
     let brush;
 
-    before(() => {
+    beforeAll(() => {
       brush = new Brush();
-      html = brush.getHtml('hello foo bar world!', {gutter: false});
+      html = brush.getHtml('hello foo bar world!', { gutter: false });
     });
 
     it('returns html', () => expect(html).toBeTruthy());
-    it('renders content', () => expect(html).toEqual(expect.arrayContaining([
-      '<div class="line number1 index0 alt2"><code class="keyword">hello</code> <code class="plain">foo bar </code><code class="keyword">world</code><code class="plain">!</code></div>'
-    ])));
-    it('does not render gutter', () => expect(html).toEqual(expect.not.arrayContaining(['class="gutter'])));
+    it('renders content', () => expect(html).toMatchSnapshot());
+    it('does not render gutter', () => expect(html).toMatchSnapshot());
   });
 });

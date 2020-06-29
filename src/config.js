@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   space: '&nbsp;',
 
   /** Enables use of <SCRIPT type="syntaxhighlighter" /> tags. */
@@ -10,5 +10,5 @@ module.exports = {
   stripBrs: false,
 
   /** Name of the tag that SyntaxHighlighter will automatically look for. */
-  tagName: 'pre'
+  tagName: 'pre',
 };

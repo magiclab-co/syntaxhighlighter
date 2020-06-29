@@ -11,7 +11,8 @@ describe('opts-parser', () => {
 
     it('has foo', () => expect(opts).toHaveProperty('foo'));
     it('is bar', () => expect(opts.foo).toBe('bar'));
-    it('has fiz-biz', () => expect(opts).toEqual(expect.arrayContaining(['fizBiz', 'fiz-biz'])));
+    it('has fiz-biz', () =>
+      expect(Object.keys(opts)).toEqual(expect.arrayContaining(['fizBiz', 'fiz-biz'])));
     it('is 1', () => expect(opts.fizBiz).toBe(1));
   });
 
@@ -53,7 +54,9 @@ describe('opts-parser', () => {
         () => (opts = parser.parse("foo-baz: 'hello, world'; helloWorld: [1,2,3]; color: #000"))
       );
       it('has keys', () =>
-        expect(opts).toEqual(expect.arrayContaining(['fooBaz', 'foo-baz', 'helloWorld', 'color'])));
+        expect(Object.keys(opts)).toEqual(
+          expect.arrayContaining(['fooBaz', 'foo-baz', 'helloWorld', 'color'])
+        ));
       it('has color', () => expect(opts.color).toBe('#000'));
     });
   });

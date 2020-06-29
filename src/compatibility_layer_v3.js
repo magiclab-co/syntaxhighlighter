@@ -2,7 +2,7 @@
 // flag is passed to the `gulp build` command.
 
 import core from './core';
-import { XRegExp } from 'syntaxhighlighter-regex';
+import { XRegExp } from '../packages/syntaxhighlighter-regex';
 
 window.SyntaxHighlighter = core;
 

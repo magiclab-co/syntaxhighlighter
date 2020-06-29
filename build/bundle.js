@@ -24,7 +24,7 @@ function getAvailableBrushes(rootPath) {
   const glob = require('glob');
 
   return glob
-    .promise(`${rootPath}/repos/brush-*`)
+    .promise(`${rootPath}/packages/brush-*`)
     .then((brushes) => brushes.map((path) => path.match(/brush-(.*)$/)[1]));
 }
 
@@ -70,10 +70,10 @@ function getBuildBrushes(rootPath, argv, availableBrushes) {
               return Promise.reject(new BuildError(`Unknown brush "${name}".`));
             }
 
-            requirePath = `brush-${name}`;
+            requirePath = `../packages/brush-${name}`;
 
             return fs.promise
-              .readFile(`${rootPath}/repos/brush-${name}/sample.txt`, 'utf8')
+              .readFile(`${rootPath}/packages/brush-${name}/sample.txt`, 'utf8')
               .then((content) => (sample = content))
               .catch(() => null);
           })
@@ -97,6 +97,7 @@ function buildJavaScript(rootPath, outputPath, buildBrushes, version, compat) {
   const registerBrushes = render(`${rootPath}/build/templates/bundle-register-brushes.js.ejs`, {
     buildBrushes,
   });
+
   const core = render(`${rootPath}/src/core.js`, { registerBrushes });
   const corePath = `${rootPath}/src/core.js`;
   const backupCorePath = `${rootPath}/src/core.js.bak`;
@@ -158,7 +159,7 @@ function buildCSS(rootPath, outputPath, theme, _version) {
     .stat(theme)
     .then(
       () => theme,
-      () => `${rootPath}/repos/theme-${theme}/theme.scss`
+      () => `${rootPath}/packages/theme-${theme}/theme.scss`
     )
     .then((path) => fs.promise.readFile(path, 'utf8'))
     .then((data) =>

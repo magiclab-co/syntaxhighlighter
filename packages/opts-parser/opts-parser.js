@@ -13,7 +13,7 @@ function process(value) {
   return result == null ? value : result;
 }
 
-module.exports = {
+export default {
   defaults: function (target, source) {
     for (var key in source || {})
       if (!target.hasOwnProperty(key)) target[key] = target[camelize(key)] = source[key];

@@ -12,7 +12,7 @@ function insertSpaces(line, pos, count) {
   );
 }
 
-module.exports = {
+export default {
   smart: function (code, tabSize) {
     var lines = code.split(/\r?\n/),
       tab = '\t',

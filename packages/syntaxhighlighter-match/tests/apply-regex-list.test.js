@@ -9,7 +9,7 @@ describe('apply-regex-list', function () {
   let matches = null;
 
   describe('applyRegexList', function () {
-    before(function () {
+    beforeAll(function () {
       matches = applyRegexList('hello all world', REGEX_LIST);
     });
 

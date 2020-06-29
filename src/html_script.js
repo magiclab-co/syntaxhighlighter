@@ -1,4 +1,4 @@
-import { applyRegexList } from 'syntaxhighlighter-match';
+import { applyRegexList } from '../packages/syntaxhighlighter-match';
 
 function HtmlScript(BrushXML, brushClass) {
   var scriptBrush,

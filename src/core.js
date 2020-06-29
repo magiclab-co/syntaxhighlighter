@@ -1,15 +1,15 @@
-import optsParser from 'opts-parser';
-import { Match, applyRegexList } from 'syntaxhighlighter-match';
-import Renderer from 'syntaxhighlighter-html-renderer';
+import optsParser from '../packages/opts-parser';
+import { Match, applyRegexList } from '../packages/syntaxhighlighter-match';
+import Renderer from '../packages/syntaxhighlighter-html-renderer';
 import utils from './utils';
 import transformers from './transformers';
 import dom from './dom';
 import config from './config';
 import defaults from './defaults';
 import HtmlScript from './html_script';
-import Highlighter from 'brush-base';
-import { commonRegExp } from 'syntaxhighlighter-regex';
-import cppBrush from 'brush-cpp';
+import Highlighter from '../packages/brush-base';
+import { commonRegExp } from '../packages/syntaxhighlighter-regex';
+import cppBrush from '../packages/brush-cpp';
 
 const sh = {
   Match,
@@ -228,5 +228,5 @@ export const clearRegisteredBrushes = () => {
 };
 
 /* an EJS hook for `gulp build --brushes` command
- * */
-registerBrush(cppBrush);
+ * <%- registerBrushes %>
+ */

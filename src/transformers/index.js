@@ -1,8 +1,8 @@
 import trim from './trim';
 import bloggerMode from './blogger_mode';
 import stripBrs from './strip_brs';
-import unindenter from 'unindenter';
-import retabber from 'retabber';
+import unindenter from '../../packages/unindenter';
+import retabber from '../../packages/retabber';
 
 export default function (code, opts) {
   code = trim(code, opts);

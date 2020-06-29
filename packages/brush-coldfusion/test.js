@@ -11,24 +11,24 @@ describe('brush-coldfusion', () => {
   });
 
   it('has populated code sample', () => {
-    return expect(sample).not.toMatch(/^Populate/);
+    expect(sample).not.toMatch(/^Populate/);
   });
 
   describe('instance', () => {
-    return it('has `regexList`', () => {
-      return expect(instance).toHaveProperty('regexList');
+    it('has `regexList`', () => {
+      expect(instance).toHaveProperty('regexList');
     });
   });
 
-  return describe('parsing', () => {
+  describe('parsing', () => {
     var matches = null;
 
     beforeAll(() => {
       return (matches = match.applyRegexList(sample, instance.regexList));
     });
 
-    return it('can parse', () => {
-      return expect(matches.length).toBeGreaterThan(0);
+    it('can parse', () => {
+      expect(matches.length).toBeGreaterThan(0);
     });
   });
 });

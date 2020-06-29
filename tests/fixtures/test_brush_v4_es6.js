@@ -1,4 +1,4 @@
-import BrushBase from 'brush-base';
+import BrushBase from '../packages/brush-base';
 import { commonRegExp } from 'syntaxhighlighter-regex';
 
 export default class Brush extends BrushBase {

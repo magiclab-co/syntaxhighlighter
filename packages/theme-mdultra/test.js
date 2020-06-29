@@ -1,8 +1,8 @@
 var fs = require('fs');
 var sass = require('node-sass');
 
-describe('theme-mdultra', function() {
-  it('compiles ok', function(done) {
+describe('theme-mdultra', () => {
+  it('compiles ok', done => {
     fs.readFile(`${__dirname}/theme.scss`, 'utf8', function(err, content) {
       var results = sass.renderSync({
         data: content,

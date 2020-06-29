@@ -10,23 +10,23 @@ class TestBrush extends BrushBase {
   }
 }
 
-describe('brush-base', function() {
-  describe('new brush', function() {
+describe('brush-base', () => {
+  describe('new brush', () => {
     var brush;
 
-    beforeEach(function() {
+    beforeEach(() => {
       brush = new TestBrush();
     });
 
-    it('has `regexList`', function() {
+    it('has `regexList`', () => {
       expect(brush).toHaveProperty('regexList');
     });
 
-    it('sets keywords', function() {
+    it('sets keywords', () => {
       expect(brush.regexList[0].regex.toString()).toBe('/\\b(?:foo|bar)\\b/');
     });
 
-    it('.getHtml()', function() {
+    it('.getHtml()', () => {
       const html = brush.getHtml('bar foo', { className: 'test_brush' });
       expect(html).toBeTruthy();
       expect(html).toMatch(/class=".*test_brush.*"/);

@@ -1,9 +1,12 @@
 import { commonRegExp, XRegExp } from '.';
 
-describe('syntaxhighlighter-regex', function() {
+describe('syntaxhighlighter-regex', () => {
   describe('commonRegExp', () => {
     it('is ok', () => expect(commonRegExp).toBeTruthy());
-    it('has multiLineCComments', () => expect(commonRegExp).toHaveProperty('multiLineCComments'));
+    it(
+      'has multiLineCComments',
+      () => expect(commonRegExp).toHaveProperty('multiLineCComments')
+    );
   });
 
   describe('XRegExp', () => {

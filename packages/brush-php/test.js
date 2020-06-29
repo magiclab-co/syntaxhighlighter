@@ -3,31 +3,31 @@ import Brush from './brush';
 
 const sample = require('fs').readFileSync(`${__dirname}/sample.txt`, 'utf8');
 
-describe('brush-php', function() {
+describe('brush-php', () => {
   let instance = null;
 
-  before(function() {
+  beforeAll(() => {
     instance = new Brush();
   });
 
-  it('has populated code sample', function() {
+  it('has populated code sample', () => {
     expect(sample).not.toMatch(/^Populate/);
   });
 
-  describe('instance', function() {
-    it('has `regexList`', function() {
+  describe('instance', () => {
+    it('has `regexList`', () => {
       expect(instance).toHaveProperty('regexList');
     });
   });
 
-  describe('parsing', function() {
+  describe('parsing', () => {
     var matches = null;
 
-    before(function() {
+    beforeAll(() => {
       matches = applyRegexList(sample, instance.regexList);
     });
 
-    it('can parse', function() {
+    it('can parse', () => {
       expect(matches.length).toBeGreaterThan(0);
     });
   });

@@ -10,16 +10,16 @@ const CODE_8 =
 should\tlook\t\tlike\t\tthey\t\tare
 evenly\tspaced\t\tbetween\t\tcolumns`;
 
-describe('retabber', function() {
-  describe('.smart', function() {
-    it('uses 4 spaces', function() {
+describe('retabber', () => {
+  describe('.smart', () => {
+    it('uses 4 spaces', () => {
       var actual = retabber.smart(CODE_4, 4);
       expect(actual).toBe(`the     words   in      this    paragraph
       should  look    like    they    are
       evenly  spaced  between columns`);
     });
 
-    it('uses 8 spaces', function() {
+    it('uses 8 spaces', () => {
       var actual = retabber.smart(CODE_8, 8);
       expect(actual).toBe(`the     words           in              this            paragraph
       should  look            like            they            are
@@ -27,15 +27,15 @@ describe('retabber', function() {
     });
   });
 
-  describe('.regular', function() {
-    it('uses 4 spaces', function() {
+  describe('.regular', () => {
+    it('uses 4 spaces', () => {
       var actual = retabber.regular(CODE_4, 4);
       expect(actual).toBe(`the        words    in        this    paragraph
       should    look    like    they    are
       evenly    spaced    between    columns`);
     });
 
-    it('uses 8 spaces', function() {
+    it('uses 8 spaces', () => {
       var actual = retabber.regular(CODE_8, 8);
       expect(actual).toBe(
         `the        words                in                this                paragraph

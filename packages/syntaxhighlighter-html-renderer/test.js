@@ -16,18 +16,24 @@ function getHtml(code, opts = {}) {
   return renderer.getHtml();
 }
 
-describe('syntaxhighlighter-html-renderer', function() {
+describe('syntaxhighlighter-html-renderer', () => {
   let element = null;
 
   function itHasElements({gutter, lineCount, firstLine = 1, highlight = []} = {}) {
-    describe('gutter', function() {
+    describe('gutter', () => {
       if (gutter) {
         it('is present', () => expect($('td.gutter', element)).toHaveLength(1));
-        it(`has ${lineCount} lines`, () => expect($('td.gutter > .line', element)).toHaveLength(lineCount));
-        it(`starts at line ${firstLine}`, () => expect($($('td.gutter > .line', element)[0]).hasClass('number' + firstLine)).toBe(true));
+        it(
+          `has ${lineCount} lines`,
+          () => expect($('td.gutter > .line', element)).toHaveLength(lineCount)
+        );
+        it(
+          `starts at line ${firstLine}`,
+          () => expect($($('td.gutter > .line', element)[0]).hasClass('number' + firstLine)).toBe(true)
+        );
 
         highlight.forEach(lineNumber =>
-          it(`has line ${lineNumber} highlighted`, function() {
+          it(`has line ${lineNumber} highlighted`, () => {
             expect($(`td.gutter > .line.number${lineNumber}`, element).hasClass('highlighted')).toBe(true);
           })
         );
@@ -36,45 +42,51 @@ describe('syntaxhighlighter-html-renderer', function() {
       }
     });
 
-    describe('code', function() {
+    describe('code', () => {
       it('is present', () => expect($('td.code', element)).toHaveLength(1));
-      it(`has ${lineCount} lines`, () => expect($('td.code > .container > .line', element)).toHaveLength(lineCount));
-      it(`starts at line ${firstLine}`, () => expect($($('td.code > .container > .line', element)[0]).hasClass('number' + firstLine)).toBe(true));
+      it(
+        `has ${lineCount} lines`,
+        () => expect($('td.code > .container > .line', element)).toHaveLength(lineCount)
+      );
+      it(
+        `starts at line ${firstLine}`,
+        () => expect($($('td.code > .container > .line', element)[0]).hasClass('number' + firstLine)).toBe(true)
+      );
     });
   };
 
-  describe('rendering with default options', function() {
-    before(() => element = $(getHtml(CODE, {})));
+  describe('rendering with default options', () => {
+    beforeAll(() => element = $(getHtml(CODE, {})));
     itHasElements({gutter: true, lineCount: 14});
   });
 
-  describe('rendering with options', function() {
-    describe('without gutter', function() {
-      before(() => element = $(getHtml(CODE, {gutter: false})));
+  describe('rendering with options', () => {
+    describe('without gutter', () => {
+      beforeAll(() => element = $(getHtml(CODE, {gutter: false})));
       itHasElements({gutter: false, lineCount: 14});
     });
 
-    describe('custom first line', function() {
-      before(() => element = $(getHtml(CODE, {firstLine: 10})));
+    describe('custom first line', () => {
+      beforeAll(() => element = $(getHtml(CODE, {firstLine: 10})));
       itHasElements({gutter: true, lineCount: 14, firstLine: 10});
     });
 
-    describe('line highlighting', function() {
-      describe('one line', function() {
-        before(() => element = $(getHtml(CODE, {highlight: 1})));
+    describe('line highlighting', () => {
+      describe('one line', () => {
+        beforeAll(() => element = $(getHtml(CODE, {highlight: 1})));
         itHasElements({gutter: true, lineCount: 14, highlight: [1]});
       });
 
-      describe('multiple lines', function() {
-        before(() => element = $(getHtml(CODE, {highlight: ['3', '4']})));
+      describe('multiple lines', () => {
+        beforeAll(() => element = $(getHtml(CODE, {highlight: ['3', '4']})));
         itHasElements({gutter: true, lineCount: 14, highlight: [3, 4]});
       });
     });
 
-    describe('processing URLs', function() {
-      before(() => element = $(getHtml(CODE, {autoLinks: true, regexList: []})));
+    describe('processing URLs', () => {
+      beforeAll(() => element = $(getHtml(CODE, {autoLinks: true, regexList: []})));
       itHasElements({gutter: true, lineCount: 14});
-      it('has URL on line 3', function() {
+      it('has URL on line 3', () => {
         expect($("td.code > .container > .line.number3 > .plain > a", element)).toHaveLength(1);
       });
     });

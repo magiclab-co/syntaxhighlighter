@@ -1,8 +1,8 @@
 var fs = require('fs');
 var sass = require('node-sass');
 
-describe('theme-fadetogrey', function() {
-  it('compiles ok', function(done) {
+describe('theme-fadetogrey', () => {
+  it('compiles ok', done => {
     fs.readFile(`${__dirname}/theme.scss`, 'utf8', function(err, content) {
       var results = sass.renderSync({
         data: content,

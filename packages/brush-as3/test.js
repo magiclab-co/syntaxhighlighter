@@ -1,7 +1,7 @@
 import match from '../syntaxhighlighter-match';
 import Brush from './brush';
 import fs from 'fs';
-var sample = fs.readFileSync('./sample.txt', 'utf8');
+var sample = fs.readFileSync(`${__dirname}/sample.txt`, 'utf8');
 
 describe('brush-as3', () => {
   var instance = null;

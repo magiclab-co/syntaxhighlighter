@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { applyRegexList } from '..';
 
 const REGEX_LIST = [
@@ -15,23 +14,23 @@ describe('apply-regex-list', function () {
     });
 
     describe('matches', function () {
-      it('is an array', () => expect(matches).to.be.instanceof(Array));
-      it('has items', () => expect(matches).to.have.length.above(0));
+      it('is an array', () => expect(matches).toBeInstanceOf(Array));
+      it('has items', () => expect(matches.length).toBeGreaterThan(0));
     });
 
     describe('first match', function () {
-      it('is `hello`', () => expect(matches[0].value).to.equal('hello'));
-      it('is a greeting', () => expect(matches[0].css).to.equal('greeting'));
+      it('is `hello`', () => expect(matches[0].value).toBe('hello'));
+      it('is a greeting', () => expect(matches[0].css).toBe('greeting'));
     });
 
     describe('second match', function () {
-      it('is `all`', () => expect(matches[1].value).to.equal('all'));
-      it('is a word', () => expect(matches[1].css).to.equal('word'));
+      it('is `all`', () => expect(matches[1].value).toBe('all'));
+      it('is a word', () => expect(matches[1].css).toBe('word'));
     });
 
     describe('third match', function () {
-      it('is `world`', () => expect(matches[2].value).to.equal('world'));
-      it('is a greeting', () => expect(matches[2].css).to.equal('greeting'));
+      it('is `world`', () => expect(matches[2].value).toBe('world'));
+      it('is a greeting', () => expect(matches[2].css).toBe('greeting'));
     });
   });
 });

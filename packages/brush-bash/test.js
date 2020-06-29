@@ -2,7 +2,7 @@ import match from '../syntaxhighlighter-match';
 import { XRegExp } from '../syntaxhighlighter-regex';
 import Brush from './brush';
 import fs from 'fs';
-var sample = fs.readFileSync('./sample.txt', 'utf8');
+var sample = fs.readFileSync(`${__dirname}/sample.txt`, 'utf8');
 
 describe('brush-bash', () => {
   var instance = null;

@@ -1,2 +1,6 @@
-export * from './lib/match';
-export * from './lib/apply-regex-list';
+import { Match } from './lib/match';
+import { applyRegexList } from './lib/apply-regex-list';
+
+export { Match, applyRegexList };
+
+export default { Match, applyRegexList };

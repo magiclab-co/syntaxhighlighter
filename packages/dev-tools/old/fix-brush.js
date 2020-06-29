@@ -50,7 +50,7 @@ function fixBrush() {
   src = src.replace(/\}(,?)\s*\/\/.*$/gm, '}$1');
   src = beautify(src, { indent_size: 2, keep_array_indentation: true });
 
-  if (src[0] === ' ' && src[1] === ' ') src = src.replace(/^  /gm, '');
+  if (src[0] === ' ' && src[1] === ' ') src = src.replace(/^ {2}/gm, '');
   if (src[0] === '\t') src = src.replace(/^\t/gm, '');
 
   fs.unlinkSync(files[0]);

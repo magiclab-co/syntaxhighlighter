@@ -10,7 +10,7 @@
     "test:all": "npm run test:setup && npm run test",
     "test:debug": "node --inspect --inspect-brk ./node_modules/.bin/jest --no-cache --no-watchman --runInBand",
     "test:setup": "gulp build --output=tests/build-dest --theme=tests/build-source/theme.scss --brushes=tests/fixtures/test_brush_v4.js,tests/fixtures/html_test_brush_v3.js,tests/fixtures/test_brush_v4_es6.js && gulp build --compat --output=tests/build-dest-compat --theme=tests/build-source/theme.scss",
-    "build": "gulp build --brushes all",
+    "build": "gulp build --brushes all --theme=packages/theme-default/theme.scss",
     "prettier": "npx prettier --write './**/*.{js,jsx,ts,tsx,scss}'",
     "lint": "eslint . --cache --quiet --fix"
   },
@@ -63,7 +63,6 @@
     "rimraf": "^2.4.4",
     "sizzle": "^2.3.5",
     "songbird": "^1.0.1",
-    "theme-base": "^4.0.1",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.0",
     "yargs": "^3.30.0"

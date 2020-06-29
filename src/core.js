@@ -1,5 +1,5 @@
 import optsParser from 'opts-parser';
-import match from 'syntaxhighlighter-match';
+import { Match, applyRegexList } from 'syntaxhighlighter-match';
 import Renderer from 'syntaxhighlighter-html-renderer';
 import utils from './utils';
 import transformers from './transformers';
@@ -12,7 +12,7 @@ import { commonRegExp } from 'syntaxhighlighter-regex';
 import cppBrush from 'brush-cpp';
 
 const sh = {
-  Match: match.Match,
+  Match,
   Highlighter,
   config,
   regexLib: commonRegExp,
@@ -118,7 +118,7 @@ const sh = {
       params['brush'] = brushName;
 
       code = transformers(code, params);
-      matches = match.applyRegexList(code, brush.regexList, params);
+      matches = applyRegexList(code, brush.regexList, params);
       renderer = new Renderer(code, matches, params);
 
       element = dom.create('div');

@@ -48,7 +48,7 @@
     "babel-loader": "^8.0.5",
     "bluebird": "^3.0.5",
     "brush-xml": "^4.0.0",
-    "cheerio": "^0.19.0",
+    "cheerio": "^0.22.0",
     "codecov": "^1.0.1",
     "ejs": "^2.3.4",
     "eslint": "^7.3.1",
@@ -73,17 +73,8 @@
     "yargs": "^3.30.0"
   },
   "dependencies": {
-    "brush-base": "^4.0.0",
-    "brush-cpp": "^4.0.1",
-    "brush-javascript": "^4.0.0",
     "domready": "^1.0.8",
-    "graceful-fs": "^4.1.15",
-    "opts-parser": "^4.0.0",
-    "retabber": "^4.0.0",
-    "syntaxhighlighter-html-renderer": "^4.0.0",
-    "syntaxhighlighter-match": "^4.0.0",
-    "syntaxhighlighter-regex": "^4.0.0",
-    "unindenter": "^4.0.0"
+    "graceful-fs": "^4.1.15"
   },
   "license": "MIT"
 }

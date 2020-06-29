@@ -17,12 +17,14 @@ function setupSyntaxHighlighter() {
     div = document.createElement('div');
     div.innerHTML = HTML;
 
-    div.appendChild(createScript('/base/tests/build-dest-compat/syntaxhighlighter.js'));
+    require('../build-dest-compat/syntaxhighlighter.js');
+
+    // div.appendChild(createScript('/base/tests/build-dest-compat/syntaxhighlighter.js'));
     div.appendChild(createScript('/base/tests/build-dest/test_brush_v3.js'));
 
     document.body.appendChild(div);
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(resolve, 900);
     });
   });

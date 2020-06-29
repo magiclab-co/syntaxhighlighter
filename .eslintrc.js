@@ -18,7 +18,7 @@ module.exports = {
 
   overrides: [
     {
-      files: ['**/*.test.[jt]s?(x)'],
+      files: ['**/test.[jt]s?(x)', '**/*.test.[jt]s?(x)'],
       globals: {
         window: true,
         document: true,

@@ -1,5 +1,5 @@
-import BrushBase from '../packages/brush-base';
-import { commonRegExp } from 'syntaxhighlighter-regex';
+import BrushBase from '../../packages/brush-base';
+import { commonRegExp } from '../../packages/syntaxhighlighter-regex';
 
 export default class Brush extends BrushBase {
   static get aliases() {

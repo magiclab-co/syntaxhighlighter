@@ -70,7 +70,7 @@ function getBuildBrushes(rootPath, argv, availableBrushes) {
               return Promise.reject(new BuildError(`Unknown brush "${name}".`));
             }
 
-            requirePath = `../packages/brush-${name}`;
+            requirePath = path.resolve(__dirname, `../packages/brush-${name}`);
 
             return fs.promise
               .readFile(`${rootPath}/packages/brush-${name}/sample.txt`, 'utf8')

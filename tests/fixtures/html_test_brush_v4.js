@@ -1,4 +1,4 @@
-import BrushBase from 'brush-base';
+import BrushBase from '../../packages/brush-base';
 import { commonRegExp as regexLib } from '../../packages/syntaxhighlighter-regex';
 
 function Brush() {

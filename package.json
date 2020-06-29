@@ -1,5 +1,5 @@
 {
-  "name": "syntaxhighlighter",
+  "name": "@magiclab/syntaxhighlighter",
   "version": "4.0.1",
   "author": {
     "name": "Alex Gorbatchev",
@@ -14,7 +14,7 @@
     "prettier": "npx prettier --write './**/*.{js,jsx,ts,tsx,scss}'",
     "lint": "eslint . --cache --quiet --fix"
   },
-  "main": "./src/core.js",
+  "main": "./dist/syntaxhighlighter.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/syntaxhighlighter/syntaxhighlighter.git"
@@ -49,17 +49,13 @@
     "bluebird": "^3.0.5",
     "brush-xml": "^4.0.0",
     "cheerio": "^0.22.0",
-    "codecov": "^1.0.1",
     "ejs": "^2.3.4",
     "eslint": "^7.3.1",
     "glob": "^6.0.1",
     "gulp": "^3.8.10",
     "gulp-help": "^1.6.1",
     "gulp-util": "^3.0.7",
-    "isparta": "^4.0.0",
     "jest": "^26.1.0",
-    "js-beautify": "^1.5.10",
-    "mkdirp": "^0.5.1",
     "node-sass": "^4.9.3",
     "ramda": "^0.18.0",
     "raw-loader": "^0.5.1",
@@ -73,8 +69,7 @@
     "yargs": "^3.30.0"
   },
   "dependencies": {
-    "domready": "^1.0.8",
-    "graceful-fs": "^4.1.15"
+    "domready": "^1.0.8"
   },
   "license": "MIT"
 }

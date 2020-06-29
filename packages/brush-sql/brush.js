@@ -1,12 +1,14 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
-  var funcs = 'abs avg case cast coalesce convert count current_timestamp ' +
+  var funcs =
+    'abs avg case cast coalesce convert count current_timestamp ' +
     'current_user day isnull left lower month nullif replace right ' +
     'session_user space substring sum system_user upper user year';
 
-  var keywords = 'absolute action add after alter as asc at authorization begin bigint ' +
+  var keywords =
+    'absolute action add after alter as asc at authorization begin bigint ' +
     'binary bit by cascade char character check checkpoint close collate ' +
     'column commit committed connect connection constraint contains continue ' +
     'create cube current current_date current_time cursor database date ' +
@@ -29,35 +31,35 @@ function Brush() {
   this.regexList = [
     {
       regex: /--(.*)$/gm,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /\/\*([^\*][\s\S]*?)?\*\//gm,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.multiLineDoubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.multiLineSingleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: new RegExp(this.getKeywords(funcs), 'gmi'),
-      css: 'color2'
+      css: 'color2',
     },
     {
       regex: new RegExp(this.getKeywords(operators), 'gmi'),
-      css: 'color1'
+      css: 'color1',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gmi'),
-      css: 'keyword'
-    }
-		];
-};
+      css: 'keyword',
+    },
+  ];
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['sql'];
-module.exports = Brush;
+export default Brush;

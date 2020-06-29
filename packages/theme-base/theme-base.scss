@@ -1,41 +1,41 @@
-$background                   : white !default;
+$background: white !default;
 
-$line_alt1_background         : $background !default;
-$line_alt2_background         : $background !default;
+$line_alt1_background: $background !default;
+$line_alt2_background: $background !default;
 
-$line_highlighted_background  : #e0e0e0 !default;
-$line_highlighted_number      : black !default;
+$line_highlighted_background: #e0e0e0 !default;
+$line_highlighted_number: black !default;
 
-$gutter_text                  : #afafaf !default;
-$gutter_border_color          : #6ce26c !default;
-$gutter_border                : 3px solid $gutter_border_color !default;
+$gutter_text: #afafaf !default;
+$gutter_border_color: #6ce26c !default;
+$gutter_border: 3px solid $gutter_border_color !default;
 
-$toolbar_collapsed_a          : #00f !default;
-$toolbar_collapsed_a_hover    : #f00 !default;
-$toolbar_collapsed_background : #fff !default;
-$toolbar_collapsed_border     : 1px solid $gutter_border_color !default;
+$toolbar_collapsed_a: #00f !default;
+$toolbar_collapsed_a_hover: #f00 !default;
+$toolbar_collapsed_background: #fff !default;
+$toolbar_collapsed_border: 1px solid $gutter_border_color !default;
 
-$toolbar_a                    : #fff !default;
-$toolbar_a_hover              : #000 !default;
-$toolbar_background           : $gutter_border_color !default;
-$toolbar_border               : none !default;
+$toolbar_a: #fff !default;
+$toolbar_a_hover: #000 !default;
+$toolbar_background: $gutter_border_color !default;
+$toolbar_border: none !default;
 
-$code_plain                   : black !default;
-$code_comments                : #008200 !default;
-$code_string                  : blue !default;
-$code_keyword                 : #006699 !default;
-$code_preprocessor            : gray !default;
-$code_variable                : #aa7700 !default;
-$code_value                   : #009900 !default;
-$code_functions               : #ff1493 !default;
-$code_constants               : #0066cc !default;
-$code_script                  : $code_keyword !default;
-$code_script_background       : none !default;
-$code_color1                  : gray !default;
-$code_color2                  : #ff1493 !default;
-$code_color3                  : red !default;
+$code_plain: black !default;
+$code_comments: #008200 !default;
+$code_string: blue !default;
+$code_keyword: #006699 !default;
+$code_preprocessor: gray !default;
+$code_variable: #aa7700 !default;
+$code_value: #009900 !default;
+$code_functions: #ff1493 !default;
+$code_constants: #0066cc !default;
+$code_script: $code_keyword !default;
+$code_script_background: none !default;
+$code_color1: gray !default;
+$code_color2: #ff1493 !default;
+$code_color3: red !default;
 
-$caption_color                : $code_plain !default;
+$caption_color: $code_plain !default;
 
 @mixin round_corners_custom($top, $right, $bottom, $left) {
   -moz-border-radius: $top $right $bottom $left !important;
@@ -78,7 +78,7 @@ $caption_color                : $code_plain !default;
     width: auto !important;
     box-sizing: content-box !important;
     font: {
-      family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+      family: 'Consolas', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace !important;
       weight: normal !important;
       style: normal !important;
       size: 1em !important;
@@ -101,24 +101,33 @@ $caption_color                : $code_plain !default;
   font-size: 1em !important;
 
   // fixes an issue with bootstrap
-  .container:before, .container:after {
+  .container:before,
+  .container:after {
     content: none !important;
   }
 
-  &.source { overflow: hidden !important; }
+  &.source {
+    overflow: hidden !important;
+  }
 
   // set up bold and italic
-  .bold { font-weight: bold !important; }
-  .italic { font-style: italic !important; }
+  .bold {
+    font-weight: bold !important;
+  }
+  .italic {
+    font-style: italic !important;
+  }
 
-  .line { white-space: pre !important; }
+  .line {
+    white-space: pre !important;
+  }
 
   // main table and columns
   table {
     width: 100% !important;
     caption {
       text-align: left !important;
-      padding: .5em 0 0.5em 1em !important;
+      padding: 0.5em 0 0.5em 1em !important;
     }
 
     td.code {
@@ -156,15 +165,22 @@ $caption_color                : $code_plain !default;
 
   &.nogutter {
     td.code {
-      .container textarea, .line { padding-left: 0em !important; }
+      .container textarea,
+      .line {
+        padding-left: 0em !important;
+      }
     }
   }
 
-  &.show { display: block !important; }
+  &.show {
+    display: block !important;
+  }
 
   // Adjust some properties when collapsed
   &.collapsed {
-    table { display: none !important; }
+    table {
+      display: none !important;
+    }
 
     .toolbar {
       padding: 0.1em 0.8em 0em 0.8em !important;
@@ -180,7 +196,9 @@ $caption_color                : $code_plain !default;
         a {
           padding: 0 !important;
           display: none !important;
-          &.expandSource { display: inline !important; }
+          &.expandSource {
+            display: inline !important;
+          }
         }
       }
     }
@@ -196,7 +214,9 @@ $caption_color                : $code_plain !default;
     font-size: 10px !important;
     z-index: 10 !important;
 
-    span.title { display: inline !important; }
+    span.title {
+      display: inline !important;
+    }
 
     a {
       display: block !important;
@@ -204,12 +224,14 @@ $caption_color                : $code_plain !default;
       text-decoration: none !important;
       padding-top: 1px !important;
 
-      &.expandSource { display: none !important; }
+      &.expandSource {
+        display: none !important;
+      }
     }
   }
 
   &.ie {
-    font-size: .9em !important;
+    font-size: 0.9em !important;
     padding: 1px 0 1px 0 !important;
 
     .toolbar {
@@ -227,35 +249,78 @@ $caption_color                : $code_plain !default;
     .line.alt2 .content,
     .line.highlighted .number,
     .line.highlighted.alt1 .content,
-    .line.highlighted.alt2 .content { background: none !important; }
+    .line.highlighted.alt2 .content {
+      background: none !important;
+    }
 
     // Gutter line numbers
     .line {
-      .number { color: #bbbbbb !important; }
+      .number {
+        color: #bbbbbb !important;
+      }
       // Add border to the lines
-      .content { color: black !important; }
+      .content {
+        color: black !important;
+      }
     }
 
     // Toolbar when visible
-    .toolbar { display: none !important; }
-    a { text-decoration: none !important; }
-    .plain, .plain a { color: black !important; }
-    .comments, .comments a { color: #008200 !important; }
-    .string, .string a { color: blue !important; }
+    .toolbar {
+      display: none !important;
+    }
+    a {
+      text-decoration: none !important;
+    }
+    .plain,
+    .plain a {
+      color: black !important;
+    }
+    .comments,
+    .comments a {
+      color: #008200 !important;
+    }
+    .string,
+    .string a {
+      color: blue !important;
+    }
     .keyword {
       color: #006699 !important;
       font-weight: bold !important;
     }
-    .preprocessor { color: gray !important; }
-    .variable { color: #aa7700 !important; }
-    .value { color: #009900 !important; }
-    .functions { color: #ff1493 !important; }
-    .constants { color: #0066cc !important; }
-    .script { font-weight: bold !important; }
-    .color1, .color1 a { color: gray !important; }
-    .color2, .color2 a { color: #ff1493 !important; }
-    .color3, .color3 a { color: red !important; }
-    .break, .break a { color: black !important; }
+    .preprocessor {
+      color: gray !important;
+    }
+    .variable {
+      color: #aa7700 !important;
+    }
+    .value {
+      color: #009900 !important;
+    }
+    .functions {
+      color: #ff1493 !important;
+    }
+    .constants {
+      color: #0066cc !important;
+    }
+    .script {
+      font-weight: bold !important;
+    }
+    .color1,
+    .color1 a {
+      color: gray !important;
+    }
+    .color2,
+    .color2 a {
+      color: #ff1493 !important;
+    }
+    .color3,
+    .color3 a {
+      color: red !important;
+    }
+    .break,
+    .break a {
+      color: black !important;
+    }
   }
 }
 
@@ -265,13 +330,22 @@ $caption_color                : $code_plain !default;
 
   // Highlighed line number
   .line {
-    &.alt1 { background-color: $line_alt1_background !important; }
-    &.alt2 { background-color: $line_alt2_background !important; }
+    &.alt1 {
+      background-color: $line_alt1_background !important;
+    }
+    &.alt2 {
+      background-color: $line_alt2_background !important;
+    }
 
     // Highlighed line
     &.highlighted {
-      &.alt1, &.alt2 { background-color: $line_highlighted_background !important; }
-      &.number { color: $line_highlighted_number !important; }
+      &.alt1,
+      &.alt2 {
+        background-color: $line_highlighted_background !important;
+      }
+      &.number {
+        color: $line_highlighted_number !important;
+      }
     }
   }
 
@@ -303,7 +377,9 @@ $caption_color                : $code_plain !default;
     }
   }
 
-  &.printing .line .content { border: none !important; }
+  &.printing .line .content {
+    border: none !important;
+  }
 
   &.collapsed {
     overflow: visible !important;
@@ -315,7 +391,9 @@ $caption_color                : $code_plain !default;
 
       a {
         color: $toolbar_collapsed_a !important;
-        &:hover { color: $toolbar_collapsed_a_hover !important; }
+        &:hover {
+          color: $toolbar_collapsed_a_hover !important;
+        }
       }
     }
   }
@@ -326,26 +404,59 @@ $caption_color                : $code_plain !default;
     border: $toolbar_border !important;
     a {
       color: $toolbar_a !important;
-      &:hover { color: $toolbar_a_hover !important; }
+      &:hover {
+        color: $toolbar_a_hover !important;
+      }
     }
   }
 
   // Actual syntax highlighter colors.
-  .plain, .plain a { color: $code_plain !important; }
-  .comments, .comments a { color: $code_comments !important; }
-  .string, .string a { color: $code_string !important; }
-  .keyword { font-weight: bold !important; color: $code_keyword !important; }
-  .preprocessor { color: $code_preprocessor !important; }
-  .variable { color: $code_variable !important; }
-  .value { color: $code_value !important; }
-  .functions { color: $code_functions !important; }
-  .constants { color: $code_constants !important; }
+  .plain,
+  .plain a {
+    color: $code_plain !important;
+  }
+  .comments,
+  .comments a {
+    color: $code_comments !important;
+  }
+  .string,
+  .string a {
+    color: $code_string !important;
+  }
+  .keyword {
+    font-weight: bold !important;
+    color: $code_keyword !important;
+  }
+  .preprocessor {
+    color: $code_preprocessor !important;
+  }
+  .variable {
+    color: $code_variable !important;
+  }
+  .value {
+    color: $code_value !important;
+  }
+  .functions {
+    color: $code_functions !important;
+  }
+  .constants {
+    color: $code_constants !important;
+  }
   .script {
     font-weight: bold !important;
     color: $code_script !important;
     background-color: $code_script_background !important;
   }
-  .color1, .color1 a { color: $code_color1 !important; }
-  .color2, .color2 a { color: $code_color2 !important; }
-  .color3, .color3 a { color: $code_color3 !important; }
+  .color1,
+  .color1 a {
+    color: $code_color1 !important;
+  }
+  .color2,
+  .color2 a {
+    color: $code_color2 !important;
+  }
+  .color3,
+  .color3 a {
+    color: $code_color3 !important;
+  }
 }

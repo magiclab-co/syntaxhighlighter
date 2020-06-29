@@ -1,11 +1,12 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Contributed by Jen
   // http://www.jensbits.com/2009/05/14/coldfusion-brush-for-syntaxhighlighter-plus
 
-  var funcs = 'Abs ACos AddSOAPRequestHeader AddSOAPResponseHeader AjaxLink AjaxOnLoad ArrayAppend ArrayAvg ArrayClear ArrayDeleteAt ' +
+  var funcs =
+    'Abs ACos AddSOAPRequestHeader AddSOAPResponseHeader AjaxLink AjaxOnLoad ArrayAppend ArrayAvg ArrayClear ArrayDeleteAt ' +
     'ArrayInsertAt ArrayIsDefined ArrayIsEmpty ArrayLen ArrayMax ArrayMin ArraySet ArraySort ArraySum ArraySwap ArrayToList ' +
     'Asc ASin Atn BinaryDecode BinaryEncode BitAnd BitMaskClear BitMaskRead BitMaskSet BitNot BitOr BitSHLN BitSHRN BitXor ' +
     'Ceiling CharsetDecode CharsetEncode Chr CJustify Compare CompareNoCase Cos CreateDate CreateDateTime CreateObject ' +
@@ -43,7 +44,8 @@ function Brush() {
     'ValueList VerifyClient Week Wrap Wrap WriteOutput XmlChildPos XmlElemNew XmlFormat XmlGetNodeType XmlNew XmlParse XmlSearch XmlTransform ' +
     'XmlValidate Year YesNoFormat';
 
-  var keywords = 'cfabort cfajaximport cfajaxproxy cfapplet cfapplication cfargument cfassociate cfbreak cfcache cfcalendar ' +
+  var keywords =
+    'cfabort cfajaximport cfajaxproxy cfapplet cfapplication cfargument cfassociate cfbreak cfcache cfcalendar ' +
     'cfcase cfcatch cfchart cfchartdata cfchartseries cfcol cfcollection cfcomponent cfcontent cfcookie cfdbinfo ' +
     'cfdefaultcase cfdirectory cfdiv cfdocument cfdocumentitem cfdocumentsection cfdump cfelse cfelseif cferror ' +
     'cfexchangecalendar cfexchangeconnection cfexchangecontact cfexchangefilter cfexchangemail cfexchangetask ' +
@@ -63,35 +65,35 @@ function Brush() {
   this.regexList = [
     {
       regex: new RegExp('--(.*)$', 'gm'),
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.xmlComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: new RegExp(this.getKeywords(funcs), 'gmi'),
-      css: 'functions'
+      css: 'functions',
     },
     {
       regex: new RegExp(this.getKeywords(operators), 'gmi'),
-      css: 'color1'
+      css: 'color1',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gmi'),
-      css: 'keyword'
-    }
-		];
+      css: 'keyword',
+    },
+  ];
 }
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['coldfusion', 'cf'];
-module.exports = Brush;
+export default Brush;

@@ -1,16 +1,18 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Contributed by Andres Almiray
   // http://jroller.com/aalmiray/entry/nice_source_code_syntax_highlighter
 
-  var keywords = 'as assert break case catch class continue def default do else extends finally ' +
+  var keywords =
+    'as assert break case catch class continue def default do else extends finally ' +
     'if in implements import instanceof interface new package property return switch ' +
     'throw throws try while public protected private static';
   var types = 'void boolean byte char short int long float double';
   var constants = 'null';
-  var methods = 'allProperties count get size ' +
+  var methods =
+    'allProperties count get size ' +
     'collect each eachProperty eachPropertyName eachWithIndex find findAll ' +
     'findIndexOf grep inject max min reverseEach sort ' +
     'asImmutable asSynchronized flatten intersect join pop reverse subMap toList ' +
@@ -25,49 +27,49 @@ function Brush() {
   this.regexList = [
     {
       regex: regexLib.singleLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.multiLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /""".*"""/g,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: new RegExp('\\b([\\d]+(\\.[\\d]+)?|0x[a-f0-9]+)\\b', 'gi'),
-      css: 'value'
+      css: 'value',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
+      css: 'keyword',
     },
     {
       regex: new RegExp(this.getKeywords(types), 'gm'),
-      css: 'color1'
+      css: 'color1',
     },
     {
       regex: new RegExp(this.getKeywords(constants), 'gm'),
-      css: 'constants'
+      css: 'constants',
     },
     {
       regex: new RegExp(this.getKeywords(methods), 'gm'),
-      css: 'functions'
-    }
-		];
+      css: 'functions',
+    },
+  ];
 
   this.forHtmlScript(regexLib.aspScriptTags);
 }
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['groovy'];
-module.exports = Brush;
+export default Brush;

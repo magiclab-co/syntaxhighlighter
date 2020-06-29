@@ -1,35 +1,35 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   this.regexList = [
     {
       regex: /^\+\+\+ .*$/gm,
-      css: 'color2'
+      css: 'color2',
     },
     {
       regex: /^\-\-\- .*$/gm,
-      css: 'color2'
+      css: 'color2',
     },
     {
       regex: /^\s.*$/gm,
-      css: 'color1'
+      css: 'color1',
     },
     {
       regex: /^@@.*@@.*$/gm,
-      css: 'variable'
+      css: 'variable',
     },
     {
       regex: /^\+.*$/gm,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /^\-.*$/gm,
-      css: 'color3'
-    }
-		];
-};
+      css: 'color3',
+    },
+  ];
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['diff', 'patch'];
-module.exports = Brush;
+export default Brush;

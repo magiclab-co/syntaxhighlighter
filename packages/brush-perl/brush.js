@@ -1,5 +1,5 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Contributed by David Simmons-Duffin and Marty Kube
@@ -41,77 +41,77 @@ function Brush() {
   this.regexList = [
     {
       regex: /(<<|&lt;&lt;)((\w+)|(['"])(.+?)\4)[\s\S]+?\n\3\5\n/g,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /#.*$/gm,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /^#!.*\n/g,
-      css: 'preprocessor'
+      css: 'preprocessor',
     },
     {
       regex: /-?\w+(?=\s*=(>|&gt;))/g,
-      css: 'string'
+      css: 'string',
     },
 
-		// is this too much?
+    // is this too much?
     {
       regex: /\bq[qwxr]?\([\s\S]*?\)/g,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\bq[qwxr]?\{[\s\S]*?\}/g,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\bq[qwxr]?\[[\s\S]*?\]/g,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\bq[qwxr]?(<|&lt;)[\s\S]*?(>|&gt;)/g,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\bq[qwxr]?([^\w({<[])[\s\S]*?\1/g,
-      css: 'string'
+      css: 'string',
     },
 
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /(?:&amp;|[$@%*]|\$#)\$?[a-zA-Z_](\w+|::)*/g,
-      css: 'variable'
+      css: 'variable',
     },
     {
       regex: /\b__(?:END|DATA)__\b[\s\S]*$/g,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /(^|\n)=\w[\s\S]*?(\n=cut\s*(?=\n)|$)/g,
-      css: 'comments'
+      css: 'comments',
     },
 
     {
       regex: new RegExp(this.getKeywords(funcs), 'gm'),
-      css: 'functions'
+      css: 'functions',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
-    }
-	];
+      css: 'keyword',
+    },
+  ];
 
   this.forHtmlScript(regexLib.phpScriptTags);
 }
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['perl', 'Perl', 'pl'];
-module.exports = Brush;
+export default Brush;

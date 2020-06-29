@@ -1,7 +1,8 @@
-import BrushBase from 'brush-base';
-import {commonRegExp} from 'syntaxhighlighter-regex';
+import BrushBase from '../brush-base';
+import { commonRegExp } from '../syntaxhighlighter-regex';
 
-const functions = 'abs acos acosh addcslashes addslashes ' +
+const functions =
+  'abs acos acosh addcslashes addslashes ' +
   'array_change_key_case array_chunk array_combine array_count_values array_diff ' +
   'array_diff_assoc array_diff_key array_diff_uassoc array_diff_ukey array_fill ' +
   'array_filter array_flip array_intersect array_intersect_assoc array_intersect_key ' +
@@ -36,7 +37,8 @@ const functions = 'abs acos acosh addcslashes addslashes ' +
   'strpos strptime strrchr strrev strripos strrpos strspn strstr strtok strtolower strtotime ' +
   'strtoupper strtr strval substr substr_compare';
 
-const keywords = 'abstract and array as break case catch cfunction class clone const continue declare default die do ' +
+const keywords =
+  'abstract and array as break case catch cfunction class clone const continue declare default die do ' +
   'else elseif enddeclare endfor endforeach endif endswitch endwhile extends final finally for foreach ' +
   'function global goto if implements include include_once interface instanceof insteadof namespace new ' +
   'old_function or private protected public return require require_once static switch ' +
@@ -53,14 +55,14 @@ export default class Brush extends BrushBase {
     super();
 
     this.regexList = [
-      {regex: commonRegExp.singleLineCComments, css: 'comments'},
-      {regex: commonRegExp.multiLineCComments, css: 'comments'},
-      {regex: commonRegExp.doubleQuotedString, css: 'string'},
-      {regex: commonRegExp.singleQuotedString, css: 'string'},
-      {regex: /\$\w+/g, css: 'variable'},
-      {regex: new RegExp(this.getKeywords(functions), 'gmi'), css: 'functions'},
-      {regex: new RegExp(this.getKeywords(constants), 'gmi'), css: 'constants'},
-      {regex: new RegExp(this.getKeywords(keywords), 'gm'), css: 'keyword'}
+      { regex: commonRegExp.singleLineCComments, css: 'comments' },
+      { regex: commonRegExp.multiLineCComments, css: 'comments' },
+      { regex: commonRegExp.doubleQuotedString, css: 'string' },
+      { regex: commonRegExp.singleQuotedString, css: 'string' },
+      { regex: /\$\w+/g, css: 'variable' },
+      { regex: new RegExp(this.getKeywords(functions), 'gmi'), css: 'functions' },
+      { regex: new RegExp(this.getKeywords(constants), 'gmi'), css: 'constants' },
+      { regex: new RegExp(this.getKeywords(keywords), 'gm'), css: 'keyword' },
     ];
 
     this.forHtmlScript(commonRegExp.phpScriptTags);

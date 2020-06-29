@@ -1,7 +1,8 @@
-var match = require('syntaxhighlighter-match');
-var XRegExp = require('syntaxhighlighter-regex').XRegExp;
-var Brush = require('./brush');
-var sample = require('fs').readFileSync('./sample.txt', 'utf8');
+import match from '../syntaxhighlighter-match';
+import { XRegExp } from '../syntaxhighlighter-regex';
+import Brush from './brush';
+import fs from 'fs';
+var sample = fs.readFileSync('./sample.txt', 'utf8');
 
 describe('brush-bash', () => {
   var instance = null;

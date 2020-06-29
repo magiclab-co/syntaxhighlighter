@@ -1,7 +1,8 @@
-import {applyRegexList} from 'syntaxhighlighter-match';
+import { applyRegexList } from '../syntaxhighlighter-match';
 import Brush from './brush';
+import fs from 'fs';
 
-const sample = require('fs').readFileSync(`${__dirname}/sample.txt`, 'utf8');
+const sample = fs.readFileSync(`${__dirname}/sample.txt`, 'utf8');
 
 describe('brush-php', () => {
   let instance = null;

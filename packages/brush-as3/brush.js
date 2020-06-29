@@ -1,12 +1,13 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Created by Peter Atoria @ http://iAtoria.com
 
   var inits = 'class interface function package';
 
-  var keywords = '-Infinity ...rest Array as AS3 Boolean break case catch const continue Date decodeURI ' +
+  var keywords =
+    '-Infinity ...rest Array as AS3 Boolean break case catch const continue Date decodeURI ' +
     'decodeURIComponent default delete do dynamic each else encodeURI encodeURIComponent escape ' +
     'extends false final finally flash_proxy for get if implements import in include Infinity ' +
     'instanceof int internal is isFinite isNaN isXMLName label namespace NaN native new null ' +
@@ -17,45 +18,45 @@ function Brush() {
   this.regexList = [
     {
       regex: regexLib.singleLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.multiLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\b([\d]+(\.[\d]+)?|0x[a-f0-9]+)\b/gi,
-      css: 'value'
+      css: 'value',
     },
     {
       regex: new RegExp(this.getKeywords(inits), 'gm'),
-      css: 'color3'
+      css: 'color3',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
+      css: 'keyword',
     },
     {
       regex: new RegExp('var', 'gm'),
-      css: 'variable'
+      css: 'variable',
     },
     {
       regex: new RegExp('trace', 'gm'),
-      css: 'color1'
-    }
-		];
+      css: 'color1',
+    },
+  ];
 
   this.forHtmlScript(regexLib.scriptScriptTags);
-};
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['actionscript3', 'as3'];
-module.exports = Brush;
+export default Brush;

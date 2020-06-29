@@ -5,18 +5,18 @@ import path from 'path';
 import Promise from 'songbird';
 import { find, write } from './lib/file';
 
-find('../{brush,theme}-*/README.md')
-  .then(files => Promise.all(files.map(file => updateBrushReadme(file).then(write))));
+find('../{brush,theme}-*/README.md').then((files) =>
+  Promise.all(files.map((file) => updateBrushReadme(file).then(write)))
+);
 
-const getFirstLine = content => content.split(/\n/mg)[2];
-const getName = fullpath => fullpath.match(/(brush|theme)-(\w+)/)[0]
+const getFirstLine = (content) => content.split(/\n/gm)[2];
+const getName = (fullpath) => fullpath.match(/(brush|theme)-(\w+)/)[0];
 
-const updateBrushReadme = file => {
+const updateBrushReadme = (file) => {
   const name = getName(file.fullpath);
   const firstLine = getFirstLine(file.content);
 
-  file.content =
-`# ${name}
+  file.content = `# ${name}
 
 [![GratiPay](https://img.shields.io/gratipay/user/alexgorbatchev.svg)](https://gratipay.com/alexgorbatchev/)
 [![Build Status](https://travis-ci.org/syntaxhighlighter/${name}.svg)](https://travis-ci.org/syntaxhighlighter/${name})
@@ -47,4 +47,4 @@ MIT
 `;
 
   return Promise.resolve(file);
-}
+};

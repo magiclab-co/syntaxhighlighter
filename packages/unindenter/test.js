@@ -1,4 +1,4 @@
-const unindenter = require('./unindenter');
+import unindenter from './unindenter';
 
 describe('unindenter', () => {
   describe('.unindent', () => {

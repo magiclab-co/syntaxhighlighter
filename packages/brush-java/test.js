@@ -1,6 +1,7 @@
-var match = require('syntaxhighlighter-match');
-var Brush = require('./brush');
-var sample = require('fs').readFileSync(`${__dirname}/sample.txt`, 'utf8');
+import match from '../syntaxhighlighter-match';
+import Brush from './brush';
+import fs from 'fs';
+var sample = fs.readFileSync(`${__dirname}/sample.txt`, 'utf8');
 
 describe('brush-java', () => {
   var instance = null;

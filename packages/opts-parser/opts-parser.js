@@ -1,60 +1,47 @@
-var XRegExp = require('syntaxhighlighter-regex').XRegExp;
+import { XRegExp } from '../syntaxhighlighter-regex';
 
-var BOOLEANS = {'true': true, 'false': false};
+var BOOLEANS = { true: true, false: false };
 
-function camelize(key)
-{
-  return key.replace(/-(\w+)/g, function(match, word)
-  {
+function camelize(key) {
+  return key.replace(/-(\w+)/g, function (match, word) {
     return word.charAt(0).toUpperCase() + word.substr(1);
   });
 }
 
-function process(value)
-{
+function process(value) {
   var result = BOOLEANS[value];
   return result == null ? value : result;
 }
 
 module.exports = {
-  defaults: function(target, source)
-  {
-    for(var key in source || {})
-      if (!target.hasOwnProperty(key))
-        target[key] = target[camelize(key)] = source[key];
+  defaults: function (target, source) {
+    for (var key in source || {})
+      if (!target.hasOwnProperty(key)) target[key] = target[camelize(key)] = source[key];
 
     return target;
   },
 
-  parse: function(str)
-  {
+  parse: function (str) {
     var match,
-        key,
-        result = {},
-        arrayRegex = XRegExp("^\\[(?<values>(.*?))\\]$"),
-        pos = 0,
-        regex = XRegExp(
-          "(?<name>[\\w-]+)" +
-          "\\s*:\\s*" +
-          "(?<value>" +
-            "[\\w%#-]+|" +    // word
-            "\\[.*?\\]|" +    // [] array
-            '".*?"|' +        // "" string
-            "'.*?'" +         // '' string
-          ")\\s*;?",
-          "g"
-        )
-        ;
-
-    while ((match = XRegExp.exec(str, regex, pos)) != null)
-    {
-      var value = match.value
-        .replace(/^['"]|['"]$/g, '') // strip quotes from end of strings
-        ;
-
+      key,
+      result = {},
+      arrayRegex = XRegExp('^\\[(?<values>(.*?))\\]$'),
+      pos = 0,
+      regex = XRegExp(
+        '(?<name>[\\w-]+)' +
+        '\\s*:\\s*' +
+        '(?<value>' +
+        '[\\w%#-]+|' + // word
+        '\\[.*?\\]|' + // [] array
+        '".*?"|' + // "" string
+        "'.*?'" + // '' string
+          ')\\s*;?',
+        'g'
+      );
+    while ((match = XRegExp.exec(str, regex, pos)) != null) {
+      var value = match.value.replace(/^['"]|['"]$/g, ''); // strip quotes from end of strings
       // try to parse array value
-      if (value != null && arrayRegex.test(value))
-      {
+      if (value != null && arrayRegex.test(value)) {
         var m = XRegExp.exec(value, arrayRegex);
         value = m.values.length > 0 ? m.values.split(/\s*,\s*/) : [];
       }
@@ -65,5 +52,5 @@ module.exports = {
     }
 
     return result;
-  }
+  },
 };

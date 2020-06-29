@@ -1,4 +1,4 @@
-module.exports = function(config) {
+export default function (config) {
   config.set({
     colors: true,
     basePath: '',
@@ -7,12 +7,10 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
     singleRun: true,
 
-    files: [
-      'test.js',
-    ],
+    files: ['test.js'],
 
     preprocessors: {
-      '**/*.js': ['webpack']
+      '**/*.js': ['webpack'],
     },
 
     webpack: {
@@ -25,7 +23,7 @@ module.exports = function(config) {
             loaders: ['babel'],
           },
         ],
-      }
+      },
     },
 
     webpackMiddleware: {

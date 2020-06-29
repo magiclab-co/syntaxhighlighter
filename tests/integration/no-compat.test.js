@@ -22,7 +22,7 @@ function setupSyntaxHighlighter() {
 
     document.body.appendChild(div);
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       setTimeout(resolve, 900);
     });
   });

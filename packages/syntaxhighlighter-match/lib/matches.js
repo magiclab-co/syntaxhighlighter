@@ -1,5 +1,5 @@
 import { Match } from './match';
-import { XRegExp } from 'syntaxhighlighter-regex';
+import { XRegExp } from '../syntaxhighlighter-regex';
 
 /**
  * Executes given regular expression on provided code and returns all matches that are found.
@@ -8,22 +8,17 @@ import { XRegExp } from 'syntaxhighlighter-regex';
  * @param {Object} regex   Regular expression item info from `regexList` collection.
  * @return {Array}         Returns a list of Match objects.
  */
-export function find(code, regexInfo)
-{
-  function defaultAdd(match, regexInfo)
-  {
+export function find(code, regexInfo) {
+  function defaultAdd(match, regexInfo) {
     return match[0];
-  };
+  }
 
   var index = 0,
-      match = null,
-      matches = [],
-      process = regexInfo.func ? regexInfo.func : defaultAdd,
-      pos = 0
-      ;
-
-  while(match = XRegExp.exec(code, regexInfo.regex, pos))
-  {
+    match = null,
+    matches = [],
+    process = regexInfo.func ? regexInfo.func : defaultAdd,
+    pos = 0;
+  while ((match = XRegExp.exec(code, regexInfo.regex, pos))) {
     var resultMatch = process(match, regexInfo);
 
     if (typeof resultMatch === 'string')
@@ -34,27 +29,20 @@ export function find(code, regexInfo)
   }
 
   return matches;
-};
+}
 
 /**
  * Sorts matches by index position and then by length.
  */
-export function sort(matches)
-{
-  function sortMatchesCallback(m1, m2)
-  {
+export function sort(matches) {
+  function sortMatchesCallback(m1, m2) {
     // sort matches by index first
-    if(m1.index < m2.index)
-      return -1;
-    else if(m1.index > m2.index)
-      return 1;
-    else
-    {
+    if (m1.index < m2.index) return -1;
+    else if (m1.index > m2.index) return 1;
+    else {
       // if index is the same, sort by length
-      if(m1.length < m2.length)
-        return -1;
-      else if(m1.length > m2.length)
-        return 1;
+      if (m1.length < m2.length) return -1;
+      else if (m1.length > m2.length) return 1;
     }
 
     return 0;
@@ -63,13 +51,12 @@ export function sort(matches)
   return matches.sort(sortMatchesCallback);
 }
 
-export function compact(matches)
-{
-  var result = [], i, l;
+export function compact(matches) {
+  var result = [],
+    i,
+    l;
 
-  for (i = 0, l = matches.length; i < l; i++)
-    if (matches[i])
-      result.push(matches[i]);
+  for (i = 0, l = matches.length; i < l; i++) if (matches[i]) result.push(matches[i]);
 
   return result;
 }
@@ -79,30 +66,20 @@ export function compact(matches)
  * This process would get rid of highligted strings inside comments,
  * keywords inside strings and so on.
  */
-export function removeNested(matches)
-{
+export function removeNested(matches) {
   // Optimized by Jose Prado (http://joseprado.com)
-  for (var i = 0, l = matches.length; i < l; i++)
-  {
-    if (matches[i] === null)
-      continue;
+  for (var i = 0, l = matches.length; i < l; i++) {
+    if (matches[i] === null) continue;
 
     var itemI = matches[i],
-        itemIEndPos = itemI.index + itemI.length
-        ;
-
-    for (var j = i + 1, l = matches.length; j < l && matches[i] !== null; j++)
-    {
+      itemIEndPos = itemI.index + itemI.length;
+    for (var j = i + 1, l = matches.length; j < l && matches[i] !== null; j++) {
       var itemJ = matches[j];
 
-      if (itemJ === null)
-        continue;
-      else if (itemJ.index > itemIEndPos)
-        break;
-      else if (itemJ.index == itemI.index && itemJ.length > itemI.length)
-        matches[i] = null;
-      else if (itemJ.index >= itemI.index && itemJ.index < itemIEndPos)
-        matches[j] = null;
+      if (itemJ === null) continue;
+      else if (itemJ.index > itemIEndPos) break;
+      else if (itemJ.index == itemI.index && itemJ.length > itemI.length) matches[i] = null;
+      else if (itemJ.index >= itemI.index && itemJ.index < itemIEndPos) matches[j] = null;
     }
   }
 

@@ -42,7 +42,7 @@ module.exports = class Generator extends yeoman.generators.Base
     @copy '_gitignore', '.gitignore'
 
   app: ->
-    @template 'lib/brush.js', "lib/brush-#{@slug}.js"
+    @template 'lib/brush.js.tpl', "lib/brush-#{@slug}.js"
 
   tests: ->
     @mkdir 'test'

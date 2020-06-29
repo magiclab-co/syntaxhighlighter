@@ -1,8 +1,9 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
-  var keywords = 'break case catch class continue ' +
+  var keywords =
+    'break case catch class continue ' +
     'default delete do else enum export extends false  ' +
     'for from as function if implements import in instanceof ' +
     'interface let new null package private protected ' +
@@ -12,33 +13,33 @@ function Brush() {
   this.regexList = [
     {
       regex: regexLib.multiLineDoubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.multiLineSingleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.multiLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /\s*#.*/gm,
-      css: 'preprocessor'
+      css: 'preprocessor',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
-    }
-    ];
+      css: 'keyword',
+    },
+  ];
 
   this.forHtmlScript(regexLib.scriptScriptTags);
 }
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['js', 'jscript', 'javascript', 'json'];
-module.exports = Brush;
+export default Brush;

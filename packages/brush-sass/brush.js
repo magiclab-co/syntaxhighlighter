@@ -1,20 +1,28 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   function getKeywordsCSS(str) {
     return '\\b([a-z_]|)' + str.replace(/ /g, '(?=:)\\b|\\b([a-z_\\*]|\\*|)') + '(?=:)\\b';
-  };
-
-  function getValuesCSS(str) {
-    return '\\b' + str.replace(/ /g, '(?!-)(?!:)\\b|\\b()') + '\:\\b';
-  };
-
-  function getKeywordsPrependedBy(keywords, by) {
-    return '(?:' + keywords.replace(/^\s+|\s+$/g, '').replace(/\s+/g, '|' + by + '\\b').replace(/^/, by + '\\b') + ')\\b';
   }
 
-  var keywords = 'ascent azimuth background-attachment background-color background-image background-position ' +
+  function getValuesCSS(str) {
+    return '\\b' + str.replace(/ /g, '(?!-)(?!:)\\b|\\b()') + ':\\b';
+  }
+
+  function getKeywordsPrependedBy(keywords, by) {
+    return (
+      '(?:' +
+      keywords
+        .replace(/^\s+|\s+$/g, '')
+        .replace(/\s+/g, '|' + by + '\\b')
+        .replace(/^/, by + '\\b') +
+      ')\\b'
+    );
+  }
+
+  var keywords =
+    'ascent azimuth background-attachment background-color background-image background-position ' +
     'background-repeat background baseline bbox border-collapse border-color border-spacing border-style border-top ' +
     'border-right border-bottom border-left border-top-color border-right-color border-bottom-color border-left-color ' +
     'border-top-style border-right-style border-bottom-style border-left-style border-top-width border-right-width ' +
@@ -29,7 +37,8 @@ function Brush() {
     'table-layout text-align top text-decoration text-indent text-shadow text-transform unicode-bidi unicode-range units-per-em ' +
     'vertical-align visibility voice-family volume white-space widows width widths word-spacing x-height z-index zoom';
 
-  var values = 'above absolute all always aqua armenian attr aural auto avoid baseline behind below bidi-override black blink block blue bold bolder ' +
+  var values =
+    'above absolute all always aqua armenian attr aural auto avoid baseline behind below bidi-override black blink block blue bold bolder ' +
     'both bottom braille capitalize caption center center-left center-right circle close-quote code collapse compact condensed ' +
     'continuous counter counters crop cross crosshair cursive dashed decimal decimal-leading-zero digits disc dotted double ' +
     'embed embossed e-resize expanded extra-condensed extra-expanded fantasy far-left far-right fast faster fixed format fuchsia ' +
@@ -44,65 +53,67 @@ function Brush() {
     'text-bottom text-top thick thin top transparent tty tv ultra-condensed ultra-expanded underline upper-alpha uppercase upper-latin ' +
     'upper-roman url visible wait white wider w-resize x-fast x-high x-large x-loud x-low x-slow x-small x-soft xx-large xx-small yellow';
 
-  var fonts = '[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif';
+  var fonts =
+    '[mM]onospace [tT]ahoma [vV]erdana [aA]rial [hH]elvetica [sS]ans-serif [sS]erif [cC]ourier mono sans serif';
 
   var statements = 'important default';
-  var preprocessor = 'import extend debug warn if else for while mixin function include content media';
+  var preprocessor =
+    'import extend debug warn if else for while mixin function include content media';
 
   var r = regexLib;
 
   this.regexList = [
     {
       regex: r.multiLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: r.singleLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: r.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: r.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\#[a-fA-F0-9]{3,6}/g,
-      css: 'value'
+      css: 'value',
     },
     {
       regex: /\b(-?\d+)(\.\d+)?(px|em|rem|pt|\:|\%|)\b/g,
-      css: 'value'
+      css: 'value',
     },
     {
       regex: /\$[\w-]+/g,
-      css: 'variable'
+      css: 'variable',
     },
     {
       regex: new RegExp(getKeywordsPrependedBy(statements, '!'), 'g'),
-      css: 'color3'
+      css: 'color3',
     },
     {
       regex: new RegExp(getKeywordsPrependedBy(preprocessor, '@'), 'g'),
-      css: 'preprocessor'
+      css: 'preprocessor',
     },
     {
       regex: new RegExp(getKeywordsCSS(keywords), 'gm'),
-      css: 'keyword'
+      css: 'keyword',
     },
     {
       regex: new RegExp(getValuesCSS(values), 'g'),
-      css: 'value'
+      css: 'value',
     },
     {
       regex: new RegExp(this.getKeywords(fonts), 'g'),
-      css: 'color1'
-    }
-		];
-};
+      css: 'color1',
+    },
+  ];
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['sass', 'scss'];
-module.exports = Brush;
+export default Brush;

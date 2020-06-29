@@ -1,12 +1,13 @@
-var match = require('syntaxhighlighter-match');
-var Brush = require('./brush');
-var sample = require('fs').readFileSync('./sample.txt', 'utf8');
+import match from '../syntaxhighlighter-match';
+import Brush from './brush';
+import fs from 'fs';
+var sample = fs.readFileSync('./sample.txt', 'utf8');
 
 describe('brush-coldfusion', () => {
   var instance = null;
 
   beforeAll(() => {
-    return instance = new Brush();
+    return (instance = new Brush());
   });
 
   it('has populated code sample', () => {
@@ -23,7 +24,7 @@ describe('brush-coldfusion', () => {
     var matches = null;
 
     beforeAll(() => {
-      return matches = match.applyRegexList(sample, instance.regexList);
+      return (matches = match.applyRegexList(sample, instance.regexList));
     });
 
     return it('can parse', () => {

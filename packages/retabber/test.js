@@ -1,12 +1,10 @@
-const retabber = require('./retabber');
+import retabber from './retabber';
 
-const CODE_4 =
-`the\t\twords\tin\t\tthis\tparagraph
+const CODE_4 = `the\t\twords\tin\t\tthis\tparagraph
 should\tlook\tlike\tthey\tare
 evenly\tspaced\tbetween\tcolumns`;
 
-const CODE_8 =
-`the\twords\t\tin\t\tthis\t\tparagraph
+const CODE_8 = `the\twords\t\tin\t\tthis\t\tparagraph
 should\tlook\t\tlike\t\tthey\t\tare
 evenly\tspaced\t\tbetween\t\tcolumns`;
 
@@ -45,4 +43,3 @@ describe('retabber', () => {
     });
   });
 });
-

@@ -11,7 +11,7 @@
     "test:debug": "node --inspect --inspect-brk ./node_modules/.bin/jest --no-cache --no-watchman --runInBand",
     "test:setup": "gulp build --output=tests/build-dest --theme=tests/build-source/theme.scss --brushes=tests/fixtures/test_brush_v4.js,tests/fixtures/html_test_brush_v3.js,tests/fixtures/test_brush_v4_es6.js && gulp build --compat --output=tests/build-dest-compat --theme=tests/build-source/theme.scss",
     "build": "gulp build --brushes all",
-    "prettier": "npx prettier **/*.js **/*.scss --write",
+    "prettier": "npx prettier --write './**/*.{js,jsx,ts,tsx,scss}'",
     "lint": "eslint . --cache --quiet --fix"
   },
   "main": "./src/core.js",

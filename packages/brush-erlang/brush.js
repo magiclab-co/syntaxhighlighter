@@ -1,12 +1,13 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Contributed by Jean-Lou Dupont
   // http://jldupont.blogspot.com/2009/06/erlang-syntax-highlighter.html
 
   // According to: http://erlang.org/doc/reference_manual/introduction.html#1.5
-  var keywords = 'after and andalso band begin bnot bor bsl bsr bxor ' +
+  var keywords =
+    'after and andalso band begin bnot bor bsl bsr bxor ' +
     'case catch cond div end fun if let not of or orelse ' +
     'query receive rem try when xor' +
     // additional
@@ -14,36 +15,36 @@ function Brush() {
 
   this.regexList = [
     {
-      regex: new RegExp("[A-Z][A-Za-z0-9_]+", 'g'),
-      css: 'constants'
+      regex: new RegExp('[A-Z][A-Za-z0-9_]+', 'g'),
+      css: 'constants',
     },
     {
-      regex: new RegExp("\\%.+", 'gm'),
-      css: 'comments'
+      regex: new RegExp('\\%.+', 'gm'),
+      css: 'comments',
     },
     {
-      regex: new RegExp("\\?[A-Za-z0-9_]+", 'g'),
-      css: 'preprocessor'
+      regex: new RegExp('\\?[A-Za-z0-9_]+', 'g'),
+      css: 'preprocessor',
     },
     {
-      regex: new RegExp("[a-z0-9_]+:[a-z0-9_]+", 'g'),
-      css: 'functions'
+      regex: new RegExp('[a-z0-9_]+:[a-z0-9_]+', 'g'),
+      css: 'functions',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
-    }
-		];
-};
+      css: 'keyword',
+    },
+  ];
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['erl', 'erlang'];
-module.exports = Brush;
+export default Brush;

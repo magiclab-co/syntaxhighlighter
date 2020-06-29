@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var path = require('path');
-var glob = require('glob');
-var decaffeinate = require('decaffeinate');
-var beautify = require('js-beautify').js_beautify;
+import fs from 'fs';
+import path from 'path';
+import glob from 'glob';
+import decaffeinate from 'decaffeinate';
+import { js_beautify as beautify } from 'js-beautify';
 
 function replaceOrDie(src, needle, value) {
   var results = src.replace(needle, value);
@@ -19,8 +19,7 @@ function coffee2js(filepath) {
 
   src = src
     .replace(')\n  .SyntaxHighlighter', ').SyntaxHighlighter')
-    .replace('require \'coffee-errors\'\n', '')
-    ;
+    .replace("require 'coffee-errors'\n", '');
 
   src = beautify(decaffeinate.convert(src), { indent_size: 2 });
 
@@ -34,9 +33,17 @@ function fixBrush() {
   src = replaceOrDie(src, ';(function()\n{\n', '');
   src = replaceOrDie(src, /\}\)\(\);\n?$/, '');
   src = replaceOrDie(src, /^\s*\/\/ CommonJS\n/gm, '');
-  src = replaceOrDie(src, 'typeof(exports) != \'undefined\' ? exports.Brush = Brush : null;', 'exports.Brush = Brush;');
+  src = replaceOrDie(
+    src,
+    "typeof(exports) != 'undefined' ? exports.Brush = Brush : null;",
+    'exports.Brush = Brush;'
+  );
   src = replaceOrDie(src, /^\s*SyntaxHighlighter\.brushes\.\w+ = Brush;\n/m, '');
-  src = replaceOrDie(src, "SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined'? require('shCore').SyntaxHighlighter : null);", "var BrushBase = require('brush-base');\nvar regexLib = require('syntaxhighlighter-regex').commonRegExp;");
+  src = replaceOrDie(
+    src,
+    "SyntaxHighlighter = SyntaxHighlighter || (typeof require !== 'undefined'? require('shCore').SyntaxHighlighter : null);",
+    "var BrushBase = require('brush-base');\nvar regexLib = require('syntaxhighlighter-regex').commonRegExp;"
+  );
   src = replaceOrDie(src, /\bSyntaxHighlighter.Highlighter\b/g, 'BrushBase');
   src = replaceOrDie(src, 'exports.Brush = Brush;', 'module.exports = Brush;');
   src = src.replace(/\bSyntaxHighlighter.regexLib\b/g, 'regexLib');
@@ -58,12 +65,20 @@ function fixTests() {
   src = replaceOrDie(src, "var fs = require('fs');\n", '');
   src = replaceOrDie(src, "var {\n  Brush\n} = require('..');", "var Brush = require('.');");
   src = replaceOrDie(src, /\bSAMPLE\b/g, 'sample');
-  src = replaceOrDie(src, "var sample = fs.readFileSync(`${__dirname}/../sample`, 'utf8');\nconsole.log(sample);", "var sample = require('raw!./sample.txt');");
-  src = replaceOrDie(src, "(typeof window !== 'undefined' && window || global).SyntaxHighlighter = {\n", '');
+  src = replaceOrDie(
+    src,
+    "var sample = fs.readFileSync(`${__dirname}/../sample`, 'utf8');\nconsole.log(sample);",
+    "var sample = require('raw!./sample.txt');"
+  );
+  src = replaceOrDie(
+    src,
+    "(typeof window !== 'undefined' && window || global).SyntaxHighlighter = {\n",
+    ''
+  );
   src = replaceOrDie(src, "  Highlighter: require('brush-base'),\n", '');
   src = replaceOrDie(src, "  regexLib: require('regex-lib'),\n", '');
-  src = replaceOrDie(src, "  brushes: {}\n", '');
-  src = replaceOrDie(src, "};\n", '');
+  src = replaceOrDie(src, '  brushes: {}\n', '');
+  src = replaceOrDie(src, '};\n', '');
 
   fs.unlinkSync('test/shcore-stub.js');
   fs.unlinkSync(files[0]);
@@ -72,7 +87,10 @@ function fixTests() {
 }
 
 function fixKarmaConf() {
-  fs.writeFileSync('karma.conf.js', fs.readFileSync(__dirname + '/template-brush-karma.conf.js', 'utf8'));
+  fs.writeFileSync(
+    'karma.conf.js',
+    fs.readFileSync(__dirname + '/template-brush-karma.conf.js', 'utf8')
+  );
 }
 
 function fixSample() {
@@ -90,24 +108,24 @@ function fixPackageJSON() {
   packageJson.scripts.test = 'karma start --single-run';
 
   packageJson.dependencies = {
-    "brush-base": "syntaxhighlighter/brush-base",
-    "regex-lib": "syntaxhighlighter/regex-lib",
+    'brush-base': 'syntaxhighlighter/brush-base',
+    'regex-lib': 'syntaxhighlighter/regex-lib',
   };
 
   packageJson.devDependencies = {
-    "parser": "syntaxhighlighter/parser",
-    "chai": "^3.4.1",
-    "babel-core": "^6.1.21",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-loader": "^6.2.0",
-    "webpack": "^1.9.6",
-    "raw-loader": "^0.5.1",
-    "karma": "^0.13.14",
-    "karma-mocha": "^0.2.0",
-    "karma-phantomjs-launcher": "^0.2.1",
-    "karma-mocha-reporter": "^1.0.2",
-    "karma-sourcemap-loader": "^0.3.6",
-    "karma-webpack": "^1.7.0",
+    parser: 'syntaxhighlighter/parser',
+    chai: '^3.4.1',
+    'babel-core': '^6.1.21',
+    'babel-preset-es2015': '^6.1.18',
+    'babel-loader': '^6.2.0',
+    webpack: '^1.9.6',
+    'raw-loader': '^0.5.1',
+    karma: '^0.13.14',
+    'karma-mocha': '^0.2.0',
+    'karma-phantomjs-launcher': '^0.2.1',
+    'karma-mocha-reporter': '^1.0.2',
+    'karma-sourcemap-loader': '^0.3.6',
+    'karma-webpack': '^1.7.0',
   };
 
   fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));

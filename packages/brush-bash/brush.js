@@ -1,26 +1,31 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
-var XRegExp = require('syntaxhighlighter-regex').XRegExp;
-var Match = require('syntaxhighlighter-match').Match;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
+import { XRegExp } from '../syntaxhighlighter-regex';
+import { Match } from '../syntaxhighlighter-match';
 
 function Brush() {
   function hereDocProcess(match, regexInfo) {
     var result = [];
 
     if (match.here_doc != null)
-      result.push(new Match(match.here_doc, match.index + match[0].indexOf(match.here_doc), 'string'));
+      result.push(
+        new Match(match.here_doc, match.index + match[0].indexOf(match.here_doc), 'string')
+      );
 
-    if (match.full_tag != null)
-      result.push(new Match(match.full_tag, match.index, 'preprocessor'));
+    if (match.full_tag != null) result.push(new Match(match.full_tag, match.index, 'preprocessor'));
 
     if (match.end_tag != null)
-      result.push(new Match(match.end_tag, match.index + match[0].lastIndexOf(match.end_tag), 'preprocessor'));
+      result.push(
+        new Match(match.end_tag, match.index + match[0].lastIndexOf(match.end_tag), 'preprocessor')
+      );
 
     return result;
   }
 
-  var keywords = 'if fi then elif else for do done until while break continue case esac function return in eq ne ge le';
-  var commands = 'alias apropos awk basename base64 bash bc bg builtin bunzip2 bzcat bzip2 bzip2recover cal cat cd cfdisk chgrp chmod chown chroot' +
+  var keywords =
+    'if fi then elif else for do done until while break continue case esac function return in eq ne ge le';
+  var commands =
+    'alias apropos awk basename base64 bash bc bg builtin bunzip2 bzcat bzip2 bzip2recover cal cat cd cfdisk chgrp chmod chown chroot' +
     'cksum clear cmp comm command cp cron crontab crypt csplit cut date dc dd ddrescue declare df ' +
     'diff diff3 dig dir dircolors dirname dirs du echo egrep eject enable env ethtool eval ' +
     'exec exit expand export expr false fdformat fdisk fg fgrep file find fmt fold format ' +
@@ -38,39 +43,42 @@ function Brush() {
   this.regexList = [
     {
       regex: /^#!.*$/gm,
-      css: 'preprocessor bold'
+      css: 'preprocessor bold',
     },
     {
       regex: /\/[\w-\/]+/gm,
-      css: 'plain'
+      css: 'plain',
     },
     {
       regex: regexLib.singleLinePerlComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
+      css: 'keyword',
     },
     {
       regex: new RegExp(this.getKeywords(commands), 'gm'),
-      css: 'functions'
+      css: 'functions',
     },
     {
-      regex: new XRegExp("(?<full_tag>(&lt;|<){2}(?<tag>\\w+)) .*$(?<here_doc>[\\s\\S]*)(?<end_tag>^\\k<tag>$)", 'gm'),
-      func: hereDocProcess
-    }
-		];
+      regex: new XRegExp(
+        '(?<full_tag>(&lt;|<){2}(?<tag>\\w+)) .*$(?<here_doc>[\\s\\S]*)(?<end_tag>^\\k<tag>$)',
+        'gm'
+      ),
+      func: hereDocProcess,
+    },
+  ];
 }
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['bash', 'shell', 'sh'];
-module.exports = Brush;
+export default Brush;

@@ -1,1 +1,3 @@
-node_modules/
+tests/build-dest
+tests/build-dest-compat
+node_modules

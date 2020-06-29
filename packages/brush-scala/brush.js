@@ -1,10 +1,11 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Contributed by Yegor Jbanov and David Bernard.
 
-  var keywords = 'val sealed case def true trait implicit forSome import match object null finally super ' +
+  var keywords =
+    'val sealed case def true trait implicit forSome import match object null finally super ' +
     'override try lazy for var catch throw type extends class while with new final yield abstract ' +
     'else do if return protected private this package false';
 
@@ -13,39 +14,39 @@ function Brush() {
   this.regexList = [
     {
       regex: regexLib.singleLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.multiLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.multiLineSingleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.multiLineDoubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /0x[a-f0-9]+|\d+(\.\d+)?/gi,
-      css: 'value'
+      css: 'value',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
+      css: 'keyword',
     },
     {
       regex: new RegExp(keyops, 'gm'),
-      css: 'keyword'
-    }
-		];
+      css: 'keyword',
+    },
+  ];
 }
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['scala'];
-module.exports = Brush;
+export default Brush;

@@ -1,8 +1,9 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
-  var keywords = 'AddHandler AddressOf AndAlso Alias And Ansi As Assembly Auto ' +
+  var keywords =
+    'AddHandler AddressOf AndAlso Alias And Ansi As Assembly Auto ' +
     'Boolean ByRef Byte ByVal Call Case Catch CBool CByte CChar CDate ' +
     'CDec CDbl Char CInt Class CLng CObj Const CShort CSng CStr CType ' +
     'Date Decimal Declare Default Delegate Dim DirectCast Do Double Each ' +
@@ -20,25 +21,25 @@ function Brush() {
   this.regexList = [
     {
       regex: /'.*$/gm,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /^\s*#.*$/gm,
-      css: 'preprocessor'
+      css: 'preprocessor',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
-    }
-	];
+      css: 'keyword',
+    },
+  ];
 
   this.forHtmlScript(regexLib.aspScriptTags);
-};
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['vb', 'vbnet'];
-module.exports = Brush;
+export default Brush;

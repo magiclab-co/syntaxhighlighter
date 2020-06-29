@@ -1,44 +1,44 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Contributed by Chad Granum
   this.regexList = [
     {
       regex: new RegExp('^1..\\d+', 'gm'),
-      css: 'plain bold italic'
+      css: 'plain bold italic',
     },
     {
       regex: new RegExp('^ok( \\d+)?', 'gm'),
-      css: 'keyword'
+      css: 'keyword',
     },
     {
       regex: new RegExp('^not ok( \\d+)?', 'gm'),
-      css: 'color3 bold'
+      css: 'color3 bold',
     },
     {
       regex: new RegExp('(?!^\\s*)#.*$', 'gm'),
-      css: 'variable bold'
+      css: 'variable bold',
     },
     {
       regex: new RegExp('^#.*$', 'gm'),
-      css: 'comments bold'
+      css: 'comments bold',
     },
     {
       regex: new RegExp('^(?!(not )?ok)[^1].*$', 'gm'),
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
   ];
 }
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['tap', 'Tap', 'TAP'];
-module.exports = Brush;
+export default Brush;

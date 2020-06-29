@@ -1,12 +1,10 @@
-var BrushBase = require('./brush-base');
+import BrushBase from './brush-base';
 
 class TestBrush extends BrushBase {
   constructor() {
     super();
 
-    this.regexList = [
-      { regex: new RegExp(this.getKeywords('foo bar', {css: 'test'})) }
-    ];
+    this.regexList = [{ regex: new RegExp(this.getKeywords('foo bar', { css: 'test' })) }];
   }
 }
 

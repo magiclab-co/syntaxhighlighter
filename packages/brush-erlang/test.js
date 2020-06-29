@@ -1,9 +1,8 @@
-var match = require('syntaxhighlighter-match');
+import match from '../syntaxhighlighter-match';
+import Brush from './brush';
 
-
-var Brush = require('./brush');
-
-var sample = require('fs').readFileSync(`${__dirname}/sample.txt`, 'utf8');
+import fs from 'fs';
+var sample = fs.readFileSync(`${__dirname}/sample.txt`, 'utf8');
 
 describe('brush-erlang', () => {
   var instance = null;

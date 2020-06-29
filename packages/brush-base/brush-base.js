@@ -1,6 +1,6 @@
-import Renderer from 'syntaxhighlighter-html-renderer';
-import { XRegExp } from 'syntaxhighlighter-regex';
-import { applyRegexList } from 'syntaxhighlighter-match';
+import Renderer from '../syntaxhighlighter-html-renderer';
+import { XRegExp } from '../syntaxhighlighter-regex';
+import { applyRegexList } from '../syntaxhighlighter-match';
 
 export default class BrushBase {
   /**

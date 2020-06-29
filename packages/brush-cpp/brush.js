@@ -1,10 +1,11 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Copyright 2006 Shin, YoungJin
 
-  var datatypes = 'ATOM BOOL BOOLEAN BYTE CHAR COLORREF DWORD DWORDLONG DWORD_PTR ' +
+  var datatypes =
+    'ATOM BOOL BOOLEAN BYTE CHAR COLORREF DWORD DWORDLONG DWORD_PTR ' +
     'DWORD32 DWORD64 FLOAT HACCEL HALF_PTR HANDLE HBITMAP HBRUSH ' +
     'HCOLORSPACE HCONV HCONVLIST HCURSOR HDC HDDEDATA HDESK HDROP HDWP ' +
     'HENHMETAFILE HFILE HFONT HGDIOBJ HGLOBAL HHOOK HICON HINSTANCE HKEY ' +
@@ -29,7 +30,8 @@ function Brush() {
     'time_t __time64_t _timeb __timeb64 tm uintptr_t _utimbuf ' +
     'va_list wchar_t wctrans_t wctype_t wint_t signed';
 
-  var keywords = 'alignas alignof auto break case catch class const constexpr decltype __finally __exception __try ' +
+  var keywords =
+    'alignas alignof auto break case catch class const constexpr decltype __finally __exception __try ' +
     'const_cast continue private public protected __declspec ' +
     'default delete deprecated dllexport dllimport do dynamic_cast ' +
     'else enum explicit extern if for friend goto inline ' +
@@ -39,7 +41,8 @@ function Brush() {
     'thread thread_local throw true false try typedef typeid typename union ' +
     'using uuid virtual void volatile whcar_t while';
 
-  var functions = 'assert isalnum isalpha iscntrl isdigit isgraph islower isprint ' +
+  var functions =
+    'assert isalnum isalpha iscntrl isdigit isgraph islower isprint ' +
     'ispunct isspace isupper isxdigit tolower toupper errno localeconv ' +
     'setlocale acos asin atan atan2 ceil cos cosh exp fabs floor fmod ' +
     'frexp ldexp log log10 modf pow sin sinh sqrt tan tanh jmp_buf ' +
@@ -59,39 +62,39 @@ function Brush() {
   this.regexList = [
     {
       regex: regexLib.singleLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.multiLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /^ *#.*/gm,
-      css: 'preprocessor'
+      css: 'preprocessor',
     },
     {
       regex: new RegExp(this.getKeywords(datatypes), 'gm'),
-      css: 'color1 bold'
+      css: 'color1 bold',
     },
     {
       regex: new RegExp(this.getKeywords(functions), 'gm'),
-      css: 'functions bold'
+      css: 'functions bold',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword bold'
-    }
-		];
-};
+      css: 'keyword bold',
+    },
+  ];
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['cpp', 'cc', 'c++', 'c', 'h', 'hpp', 'h++'];
-module.exports = Brush;
+export default Brush;

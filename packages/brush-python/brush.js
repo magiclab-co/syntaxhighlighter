@@ -1,14 +1,16 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
   // Contributed by Gheorghe Milas and Ahmad Sherif
 
-  var keywords = 'and assert break class continue def del elif else ' +
+  var keywords =
+    'and assert break class continue def del elif else ' +
     'except exec finally for from global if import in is ' +
     'lambda not or pass raise return try yield while';
 
-  var funcs = '__import__ abs all any apply basestring bin bool buffer callable ' +
+  var funcs =
+    '__import__ abs all any apply basestring bin bool buffer callable ' +
     'chr classmethod cmp coerce compile complex delattr dict dir ' +
     'divmod enumerate eval execfile file filter float format frozenset ' +
     'getattr globals hasattr hash help hex id input int intern ' +
@@ -22,49 +24,49 @@ function Brush() {
   this.regexList = [
     {
       regex: regexLib.singleLinePerlComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /^\s*@\w+/gm,
-      css: 'decorator'
+      css: 'decorator',
     },
     {
       regex: /(['\"]{3})([^\1])*?\1/gm,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /"(?!")(?:\.|\\\"|[^\""\n])*"/gm,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /'(?!')(?:\.|(\\\')|[^\''\n])*'/gm,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\+|\-|\*|\/|\%|=|==/gm,
-      css: 'keyword'
+      css: 'keyword',
     },
     {
       regex: /\b\d+\.?\w*/g,
-      css: 'value'
+      css: 'value',
     },
     {
       regex: new RegExp(this.getKeywords(funcs), 'gmi'),
-      css: 'functions'
+      css: 'functions',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
+      css: 'keyword',
     },
     {
       regex: new RegExp(this.getKeywords(special), 'gm'),
-      css: 'color1'
-    }
-			];
+      css: 'color1',
+    },
+  ];
 
   this.forHtmlScript(regexLib.aspScriptTags);
-};
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['py', 'python'];
-module.exports = Brush;
+export default Brush;

@@ -1,8 +1,9 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
-  var keywords = 'abstract assert boolean break byte case catch char class const ' +
+  var keywords =
+    'abstract assert boolean break byte case catch char class const ' +
     'continue default do double else enum extends ' +
     'false final finally float for goto if implements import ' +
     'instanceof int interface long native new null ' +
@@ -13,48 +14,48 @@ function Brush() {
   this.regexList = [
     {
       regex: regexLib.singleLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /\/\*([^\*][\s\S]*?)?\*\//gm,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /\/\*(?!\*\/)\*[\s\S]*?\*\//gm,
-      css: 'preprocessor'
+      css: 'preprocessor',
     },
     {
       regex: regexLib.doubleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\b([\d]+(\.[\d]+)?f?|[\d]+l?|0x[a-f0-9]+)\b/gi,
-      css: 'value'
+      css: 'value',
     },
     {
       regex: /(?!\@interface\b)\@[\$\w]+\b/g,
-      css: 'color1'
+      css: 'color1',
     },
     {
       regex: /\@interface\b/g,
-      css: 'color2'
+      css: 'color2',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gm'),
-      css: 'keyword'
-    }
-		];
+      css: 'keyword',
+    },
+  ];
 
   this.forHtmlScript({
     left: /(&lt;|<)%[@!=]?/g,
-    right: /%(&gt;|>)/g
+    right: /%(&gt;|>)/g,
   });
-};
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['java'];
-module.exports = Brush;
+export default Brush;

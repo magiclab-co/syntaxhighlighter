@@ -1,8 +1,9 @@
-var BrushBase = require('brush-base');
-var regexLib = require('syntaxhighlighter-regex').commonRegExp;
+import BrushBase from '../brush-base';
+import { commonRegExp as regexLib } from '../syntaxhighlighter-regex';
 
 function Brush() {
-  var keywords = 'abs addr and ansichar ansistring array as asm begin boolean byte cardinal ' +
+  var keywords =
+    'abs addr and ansichar ansistring array as asm begin boolean byte cardinal ' +
     'case char class comp const constructor currency destructor div do double ' +
     'downto else end except exports extended false file finalization finally ' +
     'for function goto if implementation in inherited int64 initialization ' +
@@ -17,39 +18,39 @@ function Brush() {
   this.regexList = [
     {
       regex: /\(\*[\s\S]*?\*\)/gm,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: /{(?!\$)[\s\S]*?}/gm,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.singleLineCComments,
-      css: 'comments'
+      css: 'comments',
     },
     {
       regex: regexLib.singleQuotedString,
-      css: 'string'
+      css: 'string',
     },
     {
       regex: /\{\$[a-zA-Z]+ .+\}/g,
-      css: 'color1'
+      css: 'color1',
     },
     {
       regex: /\b[\d\.]+\b/g,
-      css: 'value'
+      css: 'value',
     },
     {
       regex: /\$[a-zA-Z0-9]+\b/g,
-      css: 'value'
+      css: 'value',
     },
     {
       regex: new RegExp(this.getKeywords(keywords), 'gmi'),
-      css: 'keyword'
-    }
-		];
-};
+      css: 'keyword',
+    },
+  ];
+}
 
 Brush.prototype = new BrushBase();
 Brush.aliases = ['delphi', 'pascal', 'pas'];
-module.exports = Brush;
+export default Brush;

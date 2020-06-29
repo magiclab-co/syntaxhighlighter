@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var path = require('path');
-var glob = require('glob');
-var decaffeinate = require('decaffeinate');
-var beautify = require('js-beautify').js_beautify;
+import fs from 'fs';
+import path from 'path';
+import glob from 'glob';
+import decaffeinate from 'decaffeinate';
+import { js_beautify as beautify } from 'js-beautify';
 
 function replaceOrDie(src, needle, value) {
   var results = src.replace(needle, value);
@@ -25,7 +25,7 @@ function fixTheme() {
   var files = glob.sync('scss/theme*.scss');
   var src = fs.readFileSync(files[0], 'utf8');
 
-  src = replaceOrDie(src, '@import "theme.scss";', '@import "theme-base.scss";')
+  src = replaceOrDie(src, '@import "theme.scss";', '@import "theme-base.scss";');
 
   fs.writeFileSync('theme.scss', src);
   fs.unlinkSync(files[0]);
@@ -39,7 +39,11 @@ function fixTests() {
 
   src = replaceOrDie(src, /\/\.\.\/scss\/theme(-\w+)?\.scss/, '/theme.scss');
   src = replaceOrDie(src, 'var css = sass', 'var results = sass');
-  src = replaceOrDie(src, /if.*typeof css !== "undefined".*\n.*\n\s+\}\n/m, 'if(!results.css.length) throw new Error("Expecting results");\n');
+  src = replaceOrDie(
+    src,
+    /if.*typeof css !== "undefined".*\n.*\n\s+\}\n/m,
+    'if(!results.css.length) throw new Error("Expecting results");\n'
+  );
   src = src.replace(/return /g, '');
   src = src.replace(/\.\.\/node_modules\/theme-base\/scss/, 'node_modules/theme-base');
 
@@ -61,12 +65,12 @@ function fixPackageJSON() {
   packageJson.scripts.test = 'mocha --opts mocha.opts test.js';
 
   packageJson.dependencies = {
-    "theme-base": "syntaxhighlighter/theme-base",
+    'theme-base': 'syntaxhighlighter/theme-base',
   };
 
   packageJson.devDependencies = {
-    "node-sass": "^3.4.2",
-    "mocha": "^2.3.4",
+    'node-sass': '^3.4.2',
+    mocha: '^2.3.4',
   };
 
   fs.writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
